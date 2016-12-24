@@ -54,10 +54,10 @@ gamma = np.linspace(T.min(), T.max(), n_gamma)  # threshold interval.
 
 P = np.zeros(T.size)
 for i in range(n_gamma):
-    M_gamma = np.where(T > gamma[i])[0]
+    M_gamma = np.where(T > gamma[i])[0]  # number of T > gamma
     P[i] = M_gamma.size/M
 
-P_true = Q(gamma/np.sqrt(var/N))
+P_true = Q(gamma/np.sqrt(var/N))  # analytic value of Pr(T > gamma)
 
 plt.plot(gamma, P, label='$P$')
 plt.plot(gamma, P_true, label='$P_{\text{true}}$')
@@ -65,10 +65,6 @@ plt.xlabel('$\gamma$')
 plt.ylabel('$Pr\{T > \gamma\}$')
 plt.legend()
 plt.show()
-
-
-
-
 
 
 
