@@ -14,7 +14,7 @@ from utils import *
 
 np.random.seed(0)  # set seed of random number generator.
 
-A = 1  # DC level to be detected.
+A = 10  # DC level to be detected.
 N = 10  # the number of data points.
 M = 10000  # number of realizations of the test statistic T.
 

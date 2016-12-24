@@ -16,7 +16,6 @@ N = 10  # the number of data points.
 M = 1000  # number of realizations of the test statistic T.
 
 data = np.sqrt(var)*np.random.randn(M, N)  # generate M-by-N random data.
-
 T = data.mean(axis=1)  # compute the test statistic. Here it is sample mean.
 
 n_gamma = 100  # number of thresholds to be tested.

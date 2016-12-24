@@ -1,9 +1,5 @@
 # Receiver Operating Characteristics (ROC) of
 # detection of the signal s[n] = r**n, 0<r<1, in WGN.
-#
-# r should be small to get small for the monte carlo simulation
-# results to the analytic results.
-#
 # PD = Pr(T > gamma) = Q(Qinv(PFA) / sqrt(epsilon/var)))
 # where
 #   epsilon: the signal energy,
@@ -18,7 +14,7 @@ from utils import *
 
 np.random.seed(0)  # set seed of random number generator.
 
-r = 0.01  # exponential decay rate.
+r = 0.9  # exponential decay rate.
 N = 10  # the number of data points.
 M = 10000  # number of realizations of the test statistic T.
 
@@ -36,17 +32,17 @@ for PFA in np.logspace(-7, -1, 7):
     var = epsilon / d2
     gamma = np.sqrt(var*epsilon)*Qinv(PFA)  # threshold for a given gamma.
 
-    P = np.zeros(gamma.size)  # probability vector.
-    for i in range(gamma.size):
-        data = np.sqrt(var[i] * epsilon)*np.random.randn(M, N) + epsilon  # generate M-by-N random data.
+    P = np.zeros(enr.size)  # probability vector.
+    for i in range(enr.size):
+        data = np.sqrt(var[i])*np.random.randn(M, N) + s  # generate M-by-N random data.
         T = data.dot(s)  # compute the test statistic. Here it is sample mean.
         M_gamma = np.where(T > gamma[i])[0]  # number of T > gamma
         P[i] = M_gamma.size/M
 
-    P_true = Q(Qinv(PFA) - np.sqrt(d2))  # analytic value of Pr(T > gamma)
+    P_FA = Q(Qinv(PFA) - np.sqrt(d2))  # analytic value of Pr(T > gamma)
 
-    plt.plot(enr, P, '*', label='$P_{monte carlo}$')
-    plt.plot(enr, P_true, label='$P_{true}$')
+    plt.plot(enr, P, '*')
+    plt.plot(enr, P_FA)
 
 plt.xlabel(r'$10log_{10}\frac{\varepsilon}{\sigma^2}$')
 plt.ylabel(r'$P_D = Pr\{T > \gamma\}$')
