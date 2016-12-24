@@ -29,10 +29,11 @@ for i in range(n_gamma):
 
 P_true = Q(gamma/np.sqrt(var/N))  # analytic value of Pr(T > gamma)
 
-plt.plot(gamma, P, label='$P$')
-plt.plot(gamma, P_true, label='$P_{\text{true}}$')
+plt.plot(gamma, P, label='$P_{monte carlo}$')
+plt.plot(gamma, P_true, label='$P_{true}$')
 plt.xlabel('$\gamma$')
 plt.ylabel('$Pr\{T > \gamma\}$')
+plt.title(r'$Pr\{T > \gamma\} = Q(\frac{\gamma}{\sqrt{\sigma^2/N}})$', y=1.04)
 plt.legend()
 plt.show()
 
