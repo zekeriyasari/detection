@@ -14,17 +14,17 @@ from utils import *
 
 np.random.seed(0)  # set seed of random number generator.
 
-A = 1
-var = 10  # variance of the random variable.
+A = 1  # mean value of the data.
 N = 10  # the number of data points.
 M = 10000  # number of realizations of the test statistic T.
-for PFA in np.logspace(-7, -1, 7):
-    enr = np.linspace(0, 20, 100)
-    d2 = 10**(enr/10)
-    var = N*(A**2)/d2
-    gamma = np.sqrt(var/N)*Qinv(PFA)
 
-    P = np.zeros(gamma.size)
+for PFA in np.logspace(-7, -1, 7):
+    enr = np.linspace(0, 20, 100)  # energy-to-noise ratio.
+    d2 = 10**(enr/10)  # deflection coefficient of the detector.
+    var = N*(A**2)/d2  # variance of the data.
+    gamma = np.sqrt(var/N)*Qinv(PFA)  # threshold for a given gamma.
+
+    P = np.zeros(gamma.size)  # probability vector.
     for i in range(gamma.size):
         data = np.sqrt(var[i])*np.random.randn(M, N) + A  # generate M-by-N random data.
         T = data.mean(axis=1)  # compute the test statistic. Here it is sample mean.
@@ -33,8 +33,8 @@ for PFA in np.logspace(-7, -1, 7):
 
     P_true = Q(Qinv(PFA) - np.sqrt(d2))  # analytic value of Pr(T > gamma)
 
-    plt.plot(10*np.log10(d2), P, '--', label='$P_{monte carlo}$')
-    plt.plot(10*np.log10(d2), P_true, label='$P_{true}$')
+    plt.plot(enr, P, '--', label='$P_{monte carlo}$')
+    plt.plot(enr, P_true, label='$P_{true}$')
 
 plt.xlabel(r'$10log_{10}\frac{NA^2}{\sigma^2}$')
 plt.ylabel(r'$P_D = Pr\{T > \gamma\}$')
