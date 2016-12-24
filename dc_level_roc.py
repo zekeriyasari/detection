@@ -1,12 +1,12 @@
 # Receiver Operating Characteristics (ROC) of
 # detection of DC level in WGN.
-# PD = Pr(T > gamma) = Q(Qinv((gamma - A) / sqrt(var/N)))
+# PD = Pr(T > gamma) = Q(Qinv(PFA) / sqrt(N A**2/var)))
 # where
 # T: sample mean, i.e. T(x) = mean(x)
 # gamma: threshold.
 # Q: error function.
 # Qinv: inverse error function.
-# A: mean value of random variable.
+# A: dc level,
 # var: variance of the random variable.
 # N: number of data points.
 
@@ -14,7 +14,7 @@ from utils import *
 
 np.random.seed(0)  # set seed of random number generator.
 
-A = 1  # mean value of the data.
+A = 1  # DC level to be detected.
 N = 10  # the number of data points.
 M = 10000  # number of realizations of the test statistic T.
 
@@ -33,11 +33,11 @@ for PFA in np.logspace(-7, -1, 7):
 
     P_true = Q(Qinv(PFA) - np.sqrt(d2))  # analytic value of Pr(T > gamma)
 
-    plt.plot(enr, P, '--', label='$P_{monte carlo}$')
+    plt.plot(enr, P, '*', label='$P_{monte carlo}$')
     plt.plot(enr, P_true, label='$P_{true}$')
 
 plt.xlabel(r'$10log_{10}\frac{NA^2}{\sigma^2}$')
 plt.ylabel(r'$P_D = Pr\{T > \gamma\}$')
-plt.title('Detection performance for DC level in WGN. Dashed curves are Monte Carlo simulation results.')
+plt.title(r'$Pr\{T > \gamma\} = Q(Q^{-1}(P_{FA}) - \sqrt{\frac{N A^2}{\sigma^2}} )$', y=1.04)
 plt.show()
 
