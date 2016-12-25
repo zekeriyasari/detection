@@ -1,6 +1,6 @@
 # Receiver Operating Characteristics (ROC) of
 # detection of the signal s[n] = r**n, 0<r<1, in WGN.
-# PD = Pr(T > gamma) = Q(Qinv(PFA) / sqrt(epsilon/var)))
+# PD = Pr(T > gamma) = Q(Qinv(Pfa) / sqrt(epsilon/var)))
 # where
 #   epsilon: the signal energy,
 #   T: sample mean, i.e. T(x) = mean(x)

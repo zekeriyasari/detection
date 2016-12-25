@@ -1,6 +1,6 @@
 # Receiver Operating Characteristics (ROC) of
 # detection of DC level in WGN.
-# PD = Pr(T > gamma) = Q(Qinv(PFA) / sqrt(N A**2/var)))
+# PD = Pr(T > gamma) = Q(Qinv(Pfa) / sqrt(N A**2/var)))
 # where
 # T: sample mean, i.e. T(x) = mean(x)
 # gamma: threshold.

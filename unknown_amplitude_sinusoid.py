@@ -1,7 +1,8 @@
 # Receiver Operating Characteristics (ROC) of
 # detection of the signal s[n] = A*cos(2*pi*f*t + phi) in WGN.
 # with unknown amplitude.
-# PD = Pr(T > gamma) = Q(Qinv(PFA) / sqrt(epsilon/var)))
+# PD = Pr(T > gamma) = Q(Q^{-1}(P_{FA}/2 - \sqrt{\frac{\varepsilon}{\sigma^2}}) +
+#                       Q(Q^{-1}(P_{FA}/2 + \sqrt{\frac{\varepsilon}{\sigma^2}})
 # where
 #   epsilon: the signal energy,
 #   T: sample mean, i.e. T(x) = mean(x)
@@ -29,7 +30,7 @@ epsilon = s.dot(s)  # signal energy.
 for PFA in np.logspace(-7, -1, 7):
     enr = np.linspace(0, 20, 100)  # energy-to-noise ratio.
     d2 = 10 ** (enr / 10)  # deflection coefficient of the detector.
-    var = epsilon / d2
+    var = N * A ** 2 / (2*d2)
     gamma = var * (s / A).dot(s / A) * Qinv(PFA / 2) ** 2  # threshold for a given gamma.
 
     P = np.zeros(enr.size)  # probability vector.
@@ -45,7 +46,7 @@ for PFA in np.logspace(-7, -1, 7):
     plt.plot(enr, P, '*')
     plt.plot(enr, P_FA)
 
-plt.xlabel(r'$10log_{10}\frac{\varepsilon}{\sigma^2}$')
+plt.xlabel(r'$10log_{10}\frac{N A^2}{2\sigma^2}$')
 plt.ylabel(r'$P_D = Pr\{T > \gamma\}$')
 plt.title(
     r'$Pr\{T > \gamma\} = Q(Q^{-1}(P_{FA}/2 - \sqrt{\frac{\varepsilon}{\sigma^2}}) +'
