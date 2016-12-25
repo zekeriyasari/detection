@@ -1,51 +1,52 @@
-# Receiver Operating Characteristics (ROC) of
-# detection of the signal s[n] = A*cos(2*pi*f*t + phi) in WGN.
-# with unknown amplitude and phase.
-# PD = Pr(T > gamma) = Q_{\chi_2^2(\lambda)}(2\ln{\frac{1}{P_{FA}}})
-# where
-#   epsilon: the signal energy,
-#   T: sample mean, i.e. T(x) = mean(x)
-#   gamma: threshold.
-#   Q: error function.
-#   Qinv: inverse error function.
-#   var: variance of the random variable.
-#   N: number of data points.
-
 from utils import *
 
-# np.random.seed(0)  # set seed of random number generator.
+N = 10
+M = 10000
 
-N = 10  # the number of data points.
-M = 10000  # number of realizations of the test statistic T.
+pfa = np.logspace(-7, -1, 7)
+enr = np.linspace(0, 20, 50)
+d2 = 10 ** (enr / 10)
 
+for i in range(pfa.size):
+    # generate the deterministic signal.
+    f = 1e3
+    fs = 10e3
+    F = f / fs
+    A = np.random.randn(M, 1)  # random amplitude.
+    phi = np.random.rand(M, 1) * np.pi  # random phase
+    s0 = np.cos(2 * np.pi * F * np.arange(N)) * np.cos(phi) - np.sin(2 * np.pi * F * np.arange(N)) * np.sin(phi)
+    s = A * s0
+    ksi0 = np.cos(2 * np.pi * F * np.arange(N)) * np.ones((M, 1))
+    ksi1 = np.sin(2 * np.pi * F * np.arange(N)) * np.ones((M, 1))
 
-A = np.random.randn()  # random amplitude N(0, 1) with normal distribution.
-phi = np.random.rand()*np.pi  # random phase U(-pi, pi) with uniform distribution.
-f = 1e3  # frequency
-fs = 10e3  # sampling frequency.
-F = f/fs
-n = np.arange(N)
-s = A * np.cos(2 * np.pi * f / fs * n + phi)
-s0 = np.cos(2 * np.pi * F * n)
-s1 = np.sin(2 * np.pi * F * n)
+    # numerically calculate probability of detection.
+    P = np.zeros_like(enr)
+    for k in range(d2.size):
+        # variance corresponding to d2
+        epsilon0 = np.sum(s0 ** 2, axis=1).reshape((M, 1))
+        epsilon = (A ** 2) * epsilon0
+        var = epsilon / d2[k]
 
-for Pfa in np.logspace(-7, -1, 7):
-    enr = np.linspace(0, 20, 100)  # energy-to-noise ratio.
-    d2 = 10 ** (enr / 10)  # deflection coefficient of the detector.
-    var = N * A**2 / (2 * d2)
-    gamma = var * np.log(1/Pfa)  # threshold for a given gamma.
+        # generate the noise.
+        w = np.sqrt(var) * np.random.randn(M, N)
 
-    P = np.zeros(enr.size)  # probability vector.
-    for i in range(enr.size):
-        data = np.sqrt(var[i]) * np.random.randn(M, N) + s  # generate M-by-N random data.
-        T = 1 / N * (data.dot(s0) ** 2 + data.dot(s1) ** 2)  # compute the test statistic. Here it is sample mean.
-        M_gamma = np.where(T > gamma[i])[0]  # number of T > gamma
-        P[i] = M_gamma.size / M
+        # generate the M-by-N data under H1 hypothesis.
+        data = s + w  # make use of python broadcasting.
 
+        # determine thresholds for M realizations.
+        gamma = var*np.log(1/pfa[i])  # should be M-by-1 vector.
+
+        # apply the detector.
+        T = 1 / N * (np.sum(data * ksi0, axis=1).reshape((M, 1))) ** 2 + 1 / N * (np.sum(data * ksi1, axis=1).reshape(
+            (M, 1))) ** 2  # should be M-by-1 vector.
+        P[k] = np.where(T > gamma)[0].size / M
+
+    # analytically calculate probability of detection.
+    # Pd = Q(Qinv(pfa[i] / 2) - np.sqrt(d2)) + Q(Qinv(pfa[i] / 2) + np.sqrt(d2))
+
+    # plot the results.
     plt.plot(enr, P, '*')
+    # plt.plot(enr, Pd)
 
-plt.xlabel(r'$10log_{10}\frac{N A^2}{2\sigma^2}$')
-plt.ylabel(r'$P_D = Pr\{T > \gamma\}$')
-plt.title(r'$Pr\{T > \gamma\} = Q_{\chi_2^2(\lambda)}(2\ln{\frac{1}{P_{FA}}})$', y=1.04)
 plt.grid()
 plt.show()
