@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c23ae105-750f-4cf1-b262-1cfc1f2b9b7f" name="Default" comment="Pe versus ENR of BFSK modulation.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sinusoidal_glrt.py" />
+    <list default="true" id="c23ae105-750f-4cf1-b262-1cfc1f2b9b7f" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bfsk_ber.py" afterPath="$PROJECT_DIR$/bfsk_ber.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bpsk_ber.py" afterPath="$PROJECT_DIR$/bpsk_ber.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dc_level_roc.py" afterPath="$PROJECT_DIR$/dc_level_roc.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/matched_filter_roc.py" afterPath="$PROJECT_DIR$/matched_filter_roc.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/monte_carlo.py" afterPath="$PROJECT_DIR$/monte_carlo.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sinusoidal_glrt.py" afterPath="$PROJECT_DIR$/sinusoidal_glrt.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="monte_carlo.iws" />
@@ -24,11 +29,53 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="sinusoidal_glrt.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="monte_carlo.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/monte_carlo.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="34" column="9" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sinusoidal_glrt.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sinusoidal_glrt.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33333334">
-              <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="48" column="39" selection-start-line="48" selection-start-column="39" selection-end-line="48" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="23" column="19" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bfsk_ber.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bfsk_ber.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="45" column="9" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dc_level_roc.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dc_level_roc.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="41" column="9" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -38,17 +85,17 @@
         <entry file="file://$PROJECT_DIR$/matched_filter_roc.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="32" column="74" selection-start-line="0" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+              <caret line="49" column="10" selection-start-line="49" selection-start-column="10" selection-end-line="49" selection-end-column="10" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bpsk_ber.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="bpsk_ber.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bpsk_ber.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="21" selection-end-column="66" />
+            <state vertical-scroll-proportion="0.375">
+              <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -64,6 +111,7 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
@@ -72,13 +120,13 @@
         <option value="$PROJECT_DIR$/Q.py" />
         <option value="$PROJECT_DIR$/utils.py" />
         <option value="$PROJECT_DIR$/random_number_generation.py" />
-        <option value="$PROJECT_DIR$/dc_level_roc.py" />
         <option value="$PROJECT_DIR$/dc_level_bayesian.py" />
+        <option value="$PROJECT_DIR$/sinusoidal_glrt.py" />
         <option value="$PROJECT_DIR$/monte_carlo.py" />
+        <option value="$PROJECT_DIR$/bfsk_ber.py" />
+        <option value="$PROJECT_DIR$/dc_level_roc.py" />
         <option value="$PROJECT_DIR$/matched_filter_roc.py" />
         <option value="$PROJECT_DIR$/bpsk_ber.py" />
-        <option value="$PROJECT_DIR$/bfsk_ber.py" />
-        <option value="$PROJECT_DIR$/sinusoidal_glrt.py" />
       </list>
     </option>
   </component>
@@ -471,7 +519,13 @@
       <option name="project" value="LOCAL" />
       <updated>1482663751213</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="sinusoidal detectiob with unkown amplitude&#10;">
+      <created>1482666093036</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1482666093036</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -541,7 +595,8 @@
     <MESSAGE value="committed matched filter ROC." />
     <MESSAGE value="Pe versus ENR of BPSK modulation." />
     <MESSAGE value="Pe versus ENR of BFSK modulation." />
-    <option name="LAST_COMMIT_MESSAGE" value="Pe versus ENR of BFSK modulation." />
+    <MESSAGE value="sinusoidal detectiob with unkown amplitude&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="sinusoidal detectiob with unkown amplitude&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -598,16 +653,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0615385">
-          <caret line="23" column="19" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/figures/monte_carlo_simulation.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -623,10 +668,36 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/monte_carlo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="34" column="9" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sinusoidal_glrt.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="48" column="39" selection-start-line="48" selection-start-column="39" selection-end-line="48" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="19" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/bfsk_ber.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="44" column="72" selection-start-line="44" selection-start-column="72" selection-end-line="44" selection-end-column="72" />
+          <caret line="45" column="9" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -634,15 +705,7 @@
     <entry file="file://$PROJECT_DIR$/dc_level_roc.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/monte_carlo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
+          <caret line="41" column="9" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -650,23 +713,15 @@
     <entry file="file://$PROJECT_DIR$/matched_filter_roc.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="74" selection-start-line="0" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+          <caret line="49" column="10" selection-start-line="49" selection-start-column="10" selection-end-line="49" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bpsk_ber.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="21" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sinusoidal_glrt.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.375">
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
           <folding />
         </state>
       </provider>

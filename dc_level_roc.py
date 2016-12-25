@@ -39,5 +39,6 @@ for PFA in np.logspace(-7, -1, 7):
 plt.xlabel(r'$10log_{10}\frac{NA^2}{\sigma^2}$')
 plt.ylabel(r'$P_D = Pr\{T > \gamma\}$')
 plt.title(r'$Pr\{T > \gamma\} = Q(Q^{-1}(P_{FA}) - \sqrt{\frac{N A^2}{\sigma^2}} )$', y=1.04)
+plt.grid()
 plt.show()
 

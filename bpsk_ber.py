@@ -43,5 +43,6 @@ plt.semilogy(enr, Pe)
 plt.xlabel(r'$10log_{10}\frac{\varepsilon}{\sigma^2}$')
 plt.ylabel(r'$P_e = Pr\{T > 0\}$')
 plt.title(r'$Pr\{T > 0\} = Q(\sqrt{\varepsilon/\sigma^2})$', y=1.04)
+plt.grid()
 plt.show()
 

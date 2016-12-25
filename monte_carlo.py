@@ -32,6 +32,7 @@ plt.plot(gamma, P, '*', gamma, P_true)
 plt.xlabel('$\gamma$')
 plt.ylabel('$Pr\{T > \gamma\}$')
 plt.title(r'$Pr\{T > \gamma\} = Q(\frac{\gamma}{\sqrt{\sigma^2/N}})$', y=1.04)
+plt.grid()
 plt.show()
 
 

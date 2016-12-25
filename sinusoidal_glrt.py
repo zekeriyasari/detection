@@ -50,4 +50,5 @@ plt.ylabel(r'$P_D = Pr\{T > \gamma\}$')
 plt.title(
     r'$Pr\{T > \gamma\} = Q(Q^{-1}(P_{FA}/2 - \sqrt{\frac{\varepsilon}{\sigma^2}}) +'
     r' Q(Q^{-1}(P_{FA}/2 + \sqrt{\frac{\varepsilon}{\sigma^2}})$', y=1.04)
+plt.grid()
 plt.show()
