@@ -18,13 +18,14 @@ from utils import *
 N = 10  # the number of data points.
 M = 10000  # number of realizations of the test statistic T.
 
+
 A = np.random.randn()  # random amplitude N(0, 1) with normal distribution.
 phi = np.random.rand()*np.pi  # random phase U(-pi, pi) with uniform distribution.
 f = 1e3  # frequency
 fs = 10e3  # sampling frequency.
 F = f/fs
 n = np.arange(N)
-s = A * np.cos(2 * np.pi * f / fs * n + phi)  # signal under null hypothesis
+s = A * np.cos(2 * np.pi * f / fs * n + phi)
 s0 = np.cos(2 * np.pi * F * n)
 s1 = np.sin(2 * np.pi * F * n)
 
