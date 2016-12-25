@@ -16,11 +16,11 @@ N = 10  # number of data points.
 M = 10000  # number of realizations of the data.
 
 A = 1  # amplitude
-f = 1e3  # frequency
+f0, f1 = 1e3, 2e3
 fs = 10e3  # sampling frequency.
 n = np.arange(N)
-s0 = A*np.cos(2*np.pi*f/fs*n)  # signal under null null hypothesis
-s1 = -A*np.cos(2*np.pi*f/fs*n)  # signal under alternative hypothesis
+s0 = A*np.cos(2*np.pi*f0/fs*n)  # signal under null null hypothesis
+s1 = -A*np.cos(2*np.pi*f1/fs*n)  # signal under alternative hypothesis
 
 epsilon = s0.dot(s0)  # signal energy
 
@@ -35,13 +35,13 @@ for i in range(enr.size):
     M_gamma = np.where(T > 0)[0]  # number of T > 0
     P[i] = M_gamma.size/M
 
-Pe = Q(np.sqrt(epsilon/var))  # Probability of error
+Pe = Q(np.sqrt(epsilon/(2*var)))  # Probability of error
 
 plt.semilogy(enr, P, '*')
 plt.semilogy(enr, Pe)
 
 plt.xlabel(r'$10log_{10}\frac{\varepsilon}{\sigma^2}$')
 plt.ylabel(r'$P_e = Pr\{T > 0\}$')
-plt.title(r'$Pr\{T > 0\} = Q(\sqrt{\varepsilon/\sigma^2})$', y=1.04)
+plt.title(r'$Pr\{T > 0\} = Q(\sqrt{\varepsilon/(2 \sigma^2)})$', y=1.04)
 plt.show()
 
