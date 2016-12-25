@@ -10,14 +10,21 @@ d2 = 10**(enr/10)
 
 for i in range(pfa.size):
     # generate the deterministic signal.
-    A = 1  # amplitude.
-    s = A*np.ones((M, N))  # deterministic dc level.
+    f = 1e3
+    fs = 10e3
+    F = f/fs
+    A = np.random.randn(M, 1)  # random amplitude.
+    phi = np.ones((M, 1))*np.pi  # known phase
+    s0 = np.cos(2*np.pi*F*np.arange(N))*np.cos(phi) - np.sin(2*np.pi*F*np.arange(N))*np.sin(phi)
+    s = A*s0
 
     # numerically calculate probability of detection.
     P = np.zeros_like(enr)
     for k in range(d2.size):
         # variance corresponding to d2
-        var = N*A**2/d2[k]
+        epsilon0 = np.sum(s0**2, axis=1).reshape((M, 1))
+        epsilon = (A**2)*epsilon0
+        var = epsilon/d2[k]
 
         # generate the noise.
         w = np.sqrt(var)*np.random.randn(M, N)
@@ -26,14 +33,14 @@ for i in range(pfa.size):
         data = s + w   # make use of python broadcasting.
 
         # determine thresholds for M realizations.
-        gamma = np.sqrt(var/N)*Qinv(pfa[i])*np.ones(M)  # should be M-by-1 vector.
+        gamma = var*Qinv(pfa[i]/2)**2*np.sum(s0**2, axis=1).reshape((M, 1))  # should be M-by-1 vector.
 
         # apply the detector.
-        T = data.mean(axis=1)  # should be M-by-1 vector.
+        T = (np.sum(data*s0, axis=1).reshape((M, 1)))**2  # should be M-by-1 vector.
         P[k] = np.where(T > gamma)[0].size / M
 
     # analytically calculate probability of detection.
-    Pd = Q(Qinv(pfa[i]) - np.sqrt(d2))
+    Pd = Q(Qinv(pfa[i]/2) - np.sqrt(d2)) + Q(Qinv(pfa[i]/2) + np.sqrt(d2))
 
     # plot the results.
     plt.plot(enr, P, '*')
