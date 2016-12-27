@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c23ae105-750f-4cf1-b262-1cfc1f2b9b7f" name="Default" comment="implmented generation and time-frequency analysis of chirp signals.">
+    <list default="true" id="c23ae105-750f-4cf1-b262-1cfc1f2b9b7f" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/antipodal_chirp_keying.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bpsk_ber.py" afterPath="$PROJECT_DIR$/bpsk_ber.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chirp signal.py" afterPath="$PROJECT_DIR$/chirp signal.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils.py" afterPath="$PROJECT_DIR$/utils.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="monte_carlo.iws" />
@@ -37,13 +38,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="chirp signal.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="chirp signal.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chirp signal.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.24324325">
+            <state vertical-scroll-proportion="0.0">
               <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
               <folding>
                 <element signature="e#45#64#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bpsk_ber.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bpsk_ber.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
+              <folding>
+                <element signature="e#182#201#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="antipodal_chirp_keying.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/antipodal_chirp_keying.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.7751196">
+              <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+              <folding>
+                <element signature="e#252#271#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -73,7 +98,6 @@
         <option value="$PROJECT_DIR$/workspace.py" />
         <option value="$PROJECT_DIR$/workspac.py" />
         <option value="$PROJECT_DIR$/bfsk_ber.py" />
-        <option value="$PROJECT_DIR$/bpsk_ber.py" />
         <option value="$PROJECT_DIR$/dc_level_roc.py" />
         <option value="$PROJECT_DIR$/dec_level_ber.py" />
         <option value="$PROJECT_DIR$/matched_filter_roc.py" />
@@ -84,6 +108,8 @@
         <option value="$PROJECT_DIR$/unkown_amplitude_phase_sinusoid.py" />
         <option value="$PROJECT_DIR$/utils.py" />
         <option value="$PROJECT_DIR$/chirp signal.py" />
+        <option value="$PROJECT_DIR$/bpsk_ber.py" />
+        <option value="$PROJECT_DIR$/antipodal_chirp_keying.py" />
       </list>
     </option>
   </component>
@@ -162,7 +188,7 @@
       <recent name="$PROJECT_DIR$/figures" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.chirp signal">
+  <component name="RunManager" selected="Python.antipodal_chirp_keying">
     <configuration default="false" name="unknown_amplitude_sinusoid" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -210,6 +236,40 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="monte_carlo" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utils.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="bpsk_ber" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="monte_carlo" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bpsk_ber.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="antipodal_chirp_keying" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="monte_carlo" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/antipodal_chirp_keying.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -353,17 +413,21 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <list size="4">
+    <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Python.chirp signal" />
       <item index="1" class="java.lang.String" itemvalue="Python.unknown_amplitude_sinusoid" />
       <item index="2" class="java.lang.String" itemvalue="Python.unkown_amplitude_phase_sinusoid" />
       <item index="3" class="java.lang.String" itemvalue="Python.utils" />
+      <item index="4" class="java.lang.String" itemvalue="Python.bpsk_ber" />
+      <item index="5" class="java.lang.String" itemvalue="Python.antipodal_chirp_keying" />
     </list>
     <recent_temporary>
-      <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="Python.utils" />
-        <item index="1" class="java.lang.String" itemvalue="Python.unkown_amplitude_phase_sinusoid" />
-        <item index="2" class="java.lang.String" itemvalue="Python.unknown_amplitude_sinusoid" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Python.antipodal_chirp_keying" />
+        <item index="1" class="java.lang.String" itemvalue="Python.bpsk_ber" />
+        <item index="2" class="java.lang.String" itemvalue="Python.utils" />
+        <item index="3" class="java.lang.String" itemvalue="Python.unkown_amplitude_phase_sinusoid" />
+        <item index="4" class="java.lang.String" itemvalue="Python.unknown_amplitude_sinusoid" />
       </list>
     </recent_temporary>
   </component>
@@ -510,11 +574,17 @@
       <option name="project" value="LOCAL" />
       <updated>1482868402504</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="implmented generation and time-frequency analysis of chirp signals.">
+      <created>1482868716489</created>
+      <option name="number" value="00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1482868716489</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="0" width="1368" height="743" extended-state="6" />
+    <frame x="-1" y="0" width="1368" height="743" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.58426964" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -522,10 +592,10 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.10945644" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20997766" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2295345" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3563403" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35955057" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40288925" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28250402" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30979133" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -812,16 +882,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bpsk_ber.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34054053">
-          <caret line="7" column="31" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
-          <folding>
-            <element signature="e#182#201#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/unknown_amplitude.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -890,12 +950,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/bpsk_ber.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
+          <folding>
+            <element signature="e#182#201#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/chirp signal.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24324325">
+        <state vertical-scroll-proportion="0.0">
           <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding>
             <element signature="e#45#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/antipodal_chirp_keying.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.7751196">
+          <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+          <folding>
+            <element signature="e#252#271#0" expanded="true" />
           </folding>
         </state>
       </provider>

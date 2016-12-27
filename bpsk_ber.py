@@ -7,19 +7,20 @@
 from utils import *
 import matplotlib.pyplot as plt
 
-N = 10
+# N = 10
 M = 10000
 
 # pfa = np.logspace(-7, -1, 7)
 enr = np.linspace(0, 16, 50)
 d2 = 10 ** (enr / 10)
 
-# for i in range(pfa.size):
-# generate the deterministic signal.
+N = 1024  # number of points.
+Ts = 1 / 1000  # sampling period.
+fs = 1 / Ts  # sampling frequency
+t = np.arange(N)*Ts  # continuous time.
 A = 1  # amplitude.
-F = 10  # discrete-frequency.
-n = np.arange(N)
-s0 = A * np.cos(2 * np.pi * F * n)  # deterministic dc level.
+f = 100
+s0 = A * np.cos(2 * np.pi * f * t)  # deterministic dc level.
 s1 = -s0
 epsilon = s0.dot(s0)
 

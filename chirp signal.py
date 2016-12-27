@@ -5,7 +5,7 @@ from scipy import fftpack, signal
 import matplotlib.pyplot as plt
 
 
-N = 1024  # number of points. Should be large enough for proper periodic sine implementation.
+N = 1024  # number of points.
 Ts = 1 / 1000  # sampling period.
 fs = 1 / Ts  # sampling frequency
 
