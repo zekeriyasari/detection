@@ -16,7 +16,7 @@ d2 = 10**(enr/10)
 
 for i in range(pfa.size):
     # generate the deterministic signal.
-    A = 1  # random amplitude.
+    A = np.random.randn()  # random amplitude.
     r = 0.5  # exponential decay rate.
     s = A*np.array([r**n for n in range(N)])  # deterministic exponential signal.
     epsilon = s.dot(s)  # signal energy.
@@ -28,7 +28,7 @@ for i in range(pfa.size):
         var = epsilon/d2[k]
 
         # determine the threshold corresponding to gamma
-        gamma = var * (epsilon / A ** 2) * (Qinv(pfa[i]) ** 2)
+        gamma = var * (epsilon / A ** 2) * (Qinv(pfa[i]/2) ** 2)
 
         # generate the data.
         data = np.sqrt(var)*np.random.randn(M, N) + s
@@ -46,7 +46,7 @@ for i in range(pfa.size):
 
 plt.xlabel(r'$10\log_{10}\frac{\varepsilon}{\sigma^2}$')
 plt.ylabel(r'$P_D$')
-plt.title(r'$Damped \; Exponential \; in \; WGN$')
+plt.title(r'$Unknown \; Amplitude \; Damped \; Exponential \; in \; WGN$')
 plt.grid()
 plt.show()
 
