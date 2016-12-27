@@ -1,8 +1,8 @@
 # Time-frequency analysis of chirp signals.
 
 from utils import *
-import matplotlib.pyplot as plt
 from scipy import fftpack, signal
+import matplotlib.pyplot as plt
 
 
 N = 1024  # number of points. Should be large enough for proper periodic sine implementation.
@@ -10,7 +10,7 @@ Ts = 1 / 1000  # sampling period.
 fs = 1 / Ts  # sampling frequency
 
 t = np.arange(N)*Ts  # continuous time.
-x = linear_chirp(t, 100, 5, 1250)  # chirp signal.
+x = linear_chirp(t, 100, 5, 1250, phi=np.pi)  # chirp signal.
 xf = fftpack.fft(x)  # fft of the signal
 f = fftpack.fftfreq(N, Ts)  # get the sampled frequencies.
 

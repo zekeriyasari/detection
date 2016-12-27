@@ -21,7 +21,7 @@ def linear_chirp(t, f0, t1, f1, phi=0):
     :param f1: float
         final frequency
     :param phi: float
-        initial phase.
+        initial phase in radians.
 
     :return:ndarray,
         chirp signal s(t)
