@@ -2,7 +2,7 @@
 # H0: x[n] = w[n]
 # H1: x[n] = A + w[n],  n = 0, 1, ..., N-1
 # w[N] is WGN with mean 0 and variance var.
-# A is deterministic and assumed to be positive.
+# A is deterministic, unknown, and assumed to be positive.
 
 from utils import *
 
@@ -15,7 +15,7 @@ d2 = 10**(enr/10)
 
 for i in range(pfa.size):
     # generate the deterministic signal.
-    A = 1  # amplitude.
+    A = np.random.randn()  # random amplitude.
     s = A*np.ones(N)  # deterministic dc level.
 
     # numerically calculate probability of detection.
@@ -25,17 +25,17 @@ for i in range(pfa.size):
         var = N*A**2/d2[k]
 
         # determine the threshold corresponding to gamma
-        gamma = np.sqrt(var/N) * Qinv(pfa[i])
+        gamma = np.sqrt(var/N) * Qinv(pfa[i]/2)
 
         # generate the data.
         data = np.sqrt(var)*np.random.randn(M, N) + s
 
         # apply the detector.
-        T = data.mean(axis=1)  # NP detector.
+        T = np.abs(data.mean(axis=1))  # NP detector.
         P[k] = np.where(T > gamma)[0].size / M
 
     # analytically calculate probability of detection.
-    Pd = Q(Qinv(pfa[i]) - np.sqrt(d2))
+    Pd = Q(Qinv(pfa[i]/2) - np.sqrt(d2)) + Q(Qinv(pfa[i]/2) + np.sqrt(d2))
 
     # plot the results.
     plt.plot(enr, P, '*')
@@ -43,7 +43,7 @@ for i in range(pfa.size):
 
 plt.xlabel(r'$10\log_{10}\frac{NA^2}{\sigma^2}$')
 plt.ylabel(r'$P_D$')
-plt.title(r'$Known \; DC \; Level \; in \; WGN$')
+plt.title(r'$Unknown \; DC \; Level \; in \; WGN$')
 plt.grid()
 plt.show()
 

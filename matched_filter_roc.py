@@ -1,52 +1,52 @@
-# Receiver Operating Characteristics (ROC) of
-# detection of the signal s[n] = r**n, 0<r<1, in WGN.
-# PD = Pr(T > gamma) = Q(Qinv(Pfa) / sqrt(epsilon/var)))
-# where
-#   epsilon: the signal energy,
-#   T: sample mean, i.e. T(x) = mean(x)
-#   gamma: threshold.
-#   Q: error function.
-#   Qinv: inverse error function.
-#   var: variance of the random variable.
-#   N: number of data points.
+# Matched filter performance in WGN
+# H0: x[n] = w[n]
+# H1: x[n] = s[n] + w[n],  n = 0, 1, ..., N-1
+# w[N] is WGN with mean 0 and variance var.
+# s[n] is deterministic.
 
 from utils import *
 
-np.random.seed(0)  # set seed of random number generator.
+N = 10
+M = 10000
 
-r = 0.9  # exponential decay rate.
-N = 10  # the number of data points.
-M = 10000  # number of realizations of the test statistic T.
+pfa = np.logspace(-7, -1, 7)
+enr = np.linspace(0, 20, 50)
+d2 = 10**(enr/10)
 
-s = np.zeros(N)
-for n in range(N):
-    s[n] = r**n  # exponential signal to be detected.
+for i in range(pfa.size):
+    # generate the deterministic signal.
+    A = 1  # amplitude.
+    r = 0.5  # exponential decay rate.
+    s = A*np.array([r**n for n in range(N)])  # deterministic exponential signal.
+    epsilon = s.dot(s)  # signal energy.
 
+    # numerically calculate probability of detection.
+    P = np.zeros_like(enr)
+    for k in range(d2.size):
+        # variance corresponding to d2
+        var = epsilon/d2[k]
 
-epsilon = s.dot(s)  # signal energy.
-# S = np.array([s for i in range(M)]).T
+        # determine the threshold corresponding to gamma
+        gamma = np.sqrt(var*epsilon) * Qinv(pfa[i])
 
-for PFA in np.logspace(-7, -1, 7):
-    enr = np.linspace(0, 20, 100)  # energy-to-noise ratio.
-    d2 = 10**(enr/10)  # deflection coefficient of the detector.
-    var = epsilon / d2
-    gamma = np.sqrt(var*epsilon)*Qinv(PFA)  # threshold for a given gamma.
+        # generate the data.
+        data = np.sqrt(var)*np.random.randn(M, N) + s
 
-    P = np.zeros(enr.size)  # probability vector.
-    for i in range(enr.size):
-        data = np.sqrt(var[i])*np.random.randn(M, N) + s  # generate M-by-N random data.
-        T = data.dot(s)  # compute the test statistic. Here it is sample mean.
-        M_gamma = np.where(T > gamma[i])[0]  # number of T > gamma
-        P[i] = M_gamma.size/M
+        # apply the detector.
+        T = data.dot(s)  # NP detector.
+        P[k] = np.where(T > gamma)[0].size / M
 
-    P_FA = Q(Qinv(PFA) - np.sqrt(d2))  # analytic value of Pr(T > gamma)
+    # analytically calculate probability of detection.
+    Pd = Q(Qinv(pfa[i]) - np.sqrt(d2))
 
+    # plot the results.
     plt.plot(enr, P, '*')
-    plt.plot(enr, P_FA)
+    plt.plot(enr, Pd)
 
-plt.xlabel(r'$10log_{10}\frac{\varepsilon}{\sigma^2}$')
-plt.ylabel(r'$P_D = Pr\{T > \gamma\}$')
-plt.title(r'$Pr\{T > \gamma\} = Q(Q^{-1}(P_{FA}) - \sqrt{\frac{\varepsilon}{\sigma^2}})$', y=1.04)
+plt.xlabel(r'$10\log_{10}\frac{\varepsilon}{\sigma^2}$')
+plt.ylabel(r'$P_D$')
+plt.title(r'$Damped \; Exponential \; in \; WGN$')
 plt.grid()
 plt.show()
+
 

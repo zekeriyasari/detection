@@ -1,8 +1,9 @@
-# Known DC level detection performance in WGN
+# Matched filter performance in WGN
 # H0: x[n] = w[n]
-# H1: x[n] = A + w[n],  n = 0, 1, ..., N-1
+# H1: x[n] = A*s[n] + w[n],  n = 0, 1, ..., N-1
 # w[N] is WGN with mean 0 and variance var.
-# A is deterministic and assumed to be positive.
+# s[n] is deterministic and known.
+# A is deterministic and unknown.
 
 from utils import *
 
@@ -15,35 +16,37 @@ d2 = 10**(enr/10)
 
 for i in range(pfa.size):
     # generate the deterministic signal.
-    A = 1  # amplitude.
-    s = A*np.ones(N)  # deterministic dc level.
+    A = 1  # random amplitude.
+    r = 0.5  # exponential decay rate.
+    s = A*np.array([r**n for n in range(N)])  # deterministic exponential signal.
+    epsilon = s.dot(s)  # signal energy.
 
     # numerically calculate probability of detection.
     P = np.zeros_like(enr)
     for k in range(d2.size):
         # variance corresponding to d2
-        var = N*A**2/d2[k]
+        var = epsilon/d2[k]
 
         # determine the threshold corresponding to gamma
-        gamma = np.sqrt(var/N) * Qinv(pfa[i])
+        gamma = var * (epsilon / A ** 2) * (Qinv(pfa[i]) ** 2)
 
         # generate the data.
         data = np.sqrt(var)*np.random.randn(M, N) + s
 
         # apply the detector.
-        T = data.mean(axis=1)  # NP detector.
+        T = data.dot(s / A) ** 2  # NP detector.
         P[k] = np.where(T > gamma)[0].size / M
 
     # analytically calculate probability of detection.
-    Pd = Q(Qinv(pfa[i]) - np.sqrt(d2))
+    Pd = Q(Qinv(pfa[i]/2) - np.sqrt(d2)) + Q(Qinv(pfa[i]/2) + np.sqrt(d2))
 
     # plot the results.
     plt.plot(enr, P, '*')
     plt.plot(enr, Pd)
 
-plt.xlabel(r'$10\log_{10}\frac{NA^2}{\sigma^2}$')
+plt.xlabel(r'$10\log_{10}\frac{\varepsilon}{\sigma^2}$')
 plt.ylabel(r'$P_D$')
-plt.title(r'$Known \; DC \; Level \; in \; WGN$')
+plt.title(r'$Damped \; Exponential \; in \; WGN$')
 plt.grid()
 plt.show()
 

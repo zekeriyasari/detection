@@ -1,48 +1,62 @@
-# Probability of error (Pe) versus energy-to-noise(enr) performance of
-# Binary Phase Shift Keying(BPSK)in WGN.
-# PD = Pr(T > 0) = Q(sqrt(epsilon/var))
-# where
-#   epsilon: the signal energy,
-#   T: sample mean, i.e. T(x) = mean(x)
-#   Q: error function.
-#   Qinv: inverse error function.
-#   var: variance of the random variable.
-#   N: number of data points.
-
+# BFSK performance in WGN.
+# H0: x[n] = s0[n] + w[n]
+# H1: x[n] = s1[n] + w[n],  n = 0, 1, ..., N-1
+# w[N] is WGN with mean 0 and variance var.
+# s0[n] and s1[n] are deterministic.
 
 from utils import *
 
-N = 10  # number of data points.
-M = 10000  # number of realizations of the data.
+N = 10
+M = 10000
 
-A = 1  # amplitude
-f0, f1 = 1e3, 2e3
-fs = 10e3  # sampling frequency.
+# pfa = np.logspace(-7, -1, 7)
+enr = np.linspace(0, 16, 50)
+d2 = 10**(enr/10)
+
+# for i in range(pfa.size):
+# generate the deterministic signal.
+A = 1  # amplitude.
+F0 = 0.1  # discrete frequency
+F1 = 0.2  # discrete frequency
 n = np.arange(N)
-s0 = A*np.cos(2*np.pi*f0/fs*n)  # signal under null null hypothesis
-s1 = -A*np.cos(2*np.pi*f1/fs*n)  # signal under alternative hypothesis
+s0 = A*np.cos(2 * np.pi * F0 * n)  # deterministic signal.
+s1 = A*np.cos(2 * np.pi * F1 * n)  # deterministic signal.
+# plt.stem(s0)
+# plt.stem(s1)
+# plt.show()
 
-epsilon = s0.dot(s0)  # signal energy
 
-enr = np.linspace(0, 12, 100)  # enr levels
-d2 = 10**(enr/10)  # deflection coefficient of the detector.
-var = epsilon / d2
+delta_s = s1 - s0
+epsilon = s0.dot(s0)
 
-P = np.zeros(enr.size)  # probability vector.
-for i in range(enr.size):
-    data = np.sqrt(var[i])*np.random.randn(M, N) + s0  # realization of the data under null hypothesis
-    T = data.dot(s1 - s0)  # compute the test statistic.
-    M_gamma = np.where(T > 0)[0]  # number of T > 0
-    P[i] = M_gamma.size/M
+# numerically calculate probability of detection.
+P = np.zeros_like(enr)
+for k in range(d2.size):
+    # variance corresponding to d2
+    var = epsilon/d2[k]
 
-Pe = Q(np.sqrt(epsilon/(2*var)))  # Probability of error
+    # determine the threshold corresponding to gamma
+    # gamma = np.sqrt(var/N) * Qinv(pfa[i])
+    gamma = 0  # threshold for Bayesian detector
 
+    # generate the data.
+    data = np.sqrt(var)*np.random.randn(M, N) + s0
+
+    # apply the detector.
+    T = data.dot(delta_s)  # NP detector.
+    P[k] = np.where(T > gamma)[0].size / M
+
+# analytically calculate probability of error.
+Pe = Q(np.sqrt(0.5*d2))
+
+# plot the results.
 plt.semilogy(enr, P, '*')
 plt.semilogy(enr, Pe)
 
-plt.xlabel(r'$10log_{10}\frac{\varepsilon}{\sigma^2}$')
-plt.ylabel(r'$P_e = Pr\{T > 0\}$')
-plt.title(r'$Pr\{T > 0\} = Q(\sqrt{\varepsilon/(2 \sigma^2)})$', y=1.04)
+plt.xlabel(r'$10\log_{10}\frac{\varepsilon}{\sigma^2}$')
+plt.ylabel(r'$P_D$')
+plt.title(r'$Binary \; Frequency \; Shift \; Keying \; in \; WGN$')
 plt.grid()
 plt.show()
+
 
