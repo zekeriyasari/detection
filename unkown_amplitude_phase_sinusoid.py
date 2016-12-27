@@ -8,6 +8,7 @@
 
 
 from utils import *
+import matplotlib.pyplot as plt
 
 N = 10
 M = 10000
