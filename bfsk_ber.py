@@ -11,7 +11,7 @@ M = 10000
 
 # pfa = np.logspace(-7, -1, 7)
 enr = np.linspace(0, 16, 50)
-d2 = 10**(enr/10)
+d2 = 10 ** (enr / 10)
 
 # for i in range(pfa.size):
 # generate the deterministic signal.
@@ -19,8 +19,8 @@ A = 1  # amplitude.
 F0 = 0.1  # discrete frequency
 F1 = 0.2  # discrete frequency
 n = np.arange(N)
-s0 = A*np.cos(2 * np.pi * F0 * n)  # deterministic signal.
-s1 = A*np.cos(2 * np.pi * F1 * n)  # deterministic signal.
+s0 = A * np.cos(2 * np.pi * F0 * n)  # deterministic signal.
+s1 = A * np.cos(2 * np.pi * F1 * n)  # deterministic signal.
 # plt.stem(s0)
 # plt.stem(s1)
 # plt.show()
@@ -33,21 +33,21 @@ epsilon = s0.dot(s0)
 P = np.zeros_like(enr)
 for k in range(d2.size):
     # variance corresponding to d2
-    var = epsilon/d2[k]
+    var = epsilon / d2[k]
 
     # determine the threshold corresponding to gamma
     # gamma = np.sqrt(var/N) * Qinv(pfa[i])
     gamma = 0  # threshold for Bayesian detector
 
     # generate the data.
-    data = np.sqrt(var)*np.random.randn(M, N) + s0
+    data = np.sqrt(var) * np.random.randn(M, N) + s0
 
     # apply the detector.
     T = data.dot(delta_s)  # NP detector.
     P[k] = np.where(T > gamma)[0].size / M
 
 # analytically calculate probability of error.
-Pe = Q(np.sqrt(0.5*d2))
+Pe = Q(np.sqrt(0.5 * d2))
 
 # plot the results.
 plt.semilogy(enr, P, '*')
@@ -58,5 +58,3 @@ plt.ylabel(r'$P_D$')
 plt.title(r'$Binary \; Frequency \; Shift \; Keying \; in \; WGN$')
 plt.grid()
 plt.show()
-
-

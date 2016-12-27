@@ -34,7 +34,7 @@ for i in range(pfa.size):
         data = s + w  # make use of python broadcasting.
 
         # determine thresholds for M realizations.
-        gamma = var*np.log(1/pfa[i])  # should be M-by-1 vector.
+        gamma = var * np.log(1 / pfa[i])  # should be M-by-1 vector.
 
         # apply the detector.
         T = 1 / N * (np.sum(data * ksi0, axis=1).reshape((M, 1))) ** 2 + 1 / N * (np.sum(data * ksi1, axis=1).reshape(

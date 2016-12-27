@@ -11,24 +11,24 @@ M = 10000
 
 pfa = np.logspace(-7, -1, 7)
 enr = np.linspace(0, 20, 50)
-d2 = 10**(enr/10)
+d2 = 10 ** (enr / 10)
 
 for i in range(pfa.size):
     # generate the deterministic signal.
     A = 1  # amplitude.
-    s = A*np.ones(N)  # deterministic dc level.
+    s = A * np.ones(N)  # deterministic dc level.
 
     # numerically calculate probability of detection.
     P = np.zeros_like(enr)
     for k in range(d2.size):
         # variance corresponding to d2
-        var = N*A**2/d2[k]
+        var = N * A ** 2 / d2[k]
 
         # determine the threshold corresponding to gamma
-        gamma = np.sqrt(var/N) * Qinv(pfa[i])
+        gamma = np.sqrt(var / N) * Qinv(pfa[i])
 
         # generate the data.
-        data = np.sqrt(var)*np.random.randn(M, N) + s
+        data = np.sqrt(var) * np.random.randn(M, N) + s
 
         # apply the detector.
         T = data.mean(axis=1)  # NP detector.
@@ -46,5 +46,3 @@ plt.ylabel(r'$P_D$')
 plt.title(r'$Known \; DC \; Level \; in \; WGN$')
 plt.grid()
 plt.show()
-
-

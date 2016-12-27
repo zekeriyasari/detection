@@ -12,33 +12,33 @@ M = 10000
 
 pfa = np.logspace(-7, -1, 7)
 enr = np.linspace(0, 20, 50)
-d2 = 10**(enr/10)
+d2 = 10 ** (enr / 10)
 
 for i in range(pfa.size):
     # generate the deterministic signal.
     A = np.random.randn()  # random amplitude.
     r = 0.5  # exponential decay rate.
-    s = A*np.array([r**n for n in range(N)])  # deterministic exponential signal.
+    s = A * np.array([r ** n for n in range(N)])  # deterministic exponential signal.
     epsilon = s.dot(s)  # signal energy.
 
     # numerically calculate probability of detection.
     P = np.zeros_like(enr)
     for k in range(d2.size):
         # variance corresponding to d2
-        var = epsilon/d2[k]
+        var = epsilon / d2[k]
 
         # determine the threshold corresponding to gamma
-        gamma = var * (epsilon / A ** 2) * (Qinv(pfa[i]/2) ** 2)
+        gamma = var * (epsilon / A ** 2) * (Qinv(pfa[i] / 2) ** 2)
 
         # generate the data.
-        data = np.sqrt(var)*np.random.randn(M, N) + s
+        data = np.sqrt(var) * np.random.randn(M, N) + s
 
         # apply the detector.
         T = data.dot(s / A) ** 2  # NP detector.
         P[k] = np.where(T > gamma)[0].size / M
 
     # analytically calculate probability of detection.
-    Pd = Q(Qinv(pfa[i]/2) - np.sqrt(d2)) + Q(Qinv(pfa[i]/2) + np.sqrt(d2))
+    Pd = Q(Qinv(pfa[i] / 2) - np.sqrt(d2)) + Q(Qinv(pfa[i] / 2) + np.sqrt(d2))
 
     # plot the results.
     plt.plot(enr, P, '*')
@@ -49,5 +49,3 @@ plt.ylabel(r'$P_D$')
 plt.title(r'$Unknown \; Amplitude \; Damped \; Exponential \; in \; WGN$')
 plt.grid()
 plt.show()
-
-

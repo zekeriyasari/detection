@@ -14,7 +14,7 @@ def Q(x):
         Right tail probabilities.
     """
 
-    return 0.5*erfc(x/np.sqrt(2))
+    return 0.5 * erfc(x / np.sqrt(2))
 
 
 def Qinv(x):
@@ -27,4 +27,4 @@ def Qinv(x):
         Real vector of values of random variable.
     """
 
-    return np.sqrt(2)*erfinv(1 - 2*x)
+    return np.sqrt(2) * erfinv(1 - 2 * x)
