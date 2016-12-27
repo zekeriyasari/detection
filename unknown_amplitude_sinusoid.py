@@ -17,19 +17,16 @@ d2 = 10 ** (enr / 10)
 for i in range(pfa.size):
     # generate the deterministic signal.
     A = np.random.randn()  # random amplitude.
-    r = 0.5  # exponential decay rate.
-    # s = A*np.array([r**n for n in range(N)])  # deterministic exponential signal.
+    F = 0.5  # discrete frequency.
     n = np.arange(N)
-    F = 0.5
     s = A * np.cos(2 * np.pi * F * n)
-    # s = A*np.array([r**n for n in range(N)])  # deterministic exponential signal.
     epsilon = s.dot(s)  # signal energy.
 
     # numerically calculate probability of detection.
     P = np.zeros_like(enr)
     for k in range(d2.size):
         # variance corresponding to d2
-        var = N * (A ** 2) / d2[k]
+        var = N * (A ** 2) / (2 * d2[k])
 
         # determine the threshold corresponding to gamma
         gamma = var * (epsilon / A ** 2) * (Qinv(pfa[i] / 2) ** 2)
@@ -42,14 +39,14 @@ for i in range(pfa.size):
         P[k] = np.where(T > gamma)[0].size / M
 
     # analytically calculate probability of detection.
-    Pd = Q(Qinv(pfa[i] / 2) - np.sqrt(d2)) + Q(Qinv(pfa[i] / 2) + np.sqrt(d2))
+    Pd = Q(Qinv(pfa[i] / 2) - np.sqrt(d2 * 2)) + Q(Qinv(pfa[i] / 2) + np.sqrt(d2 * 2))
 
     # plot the results.
     plt.plot(enr, P, '*')
     plt.plot(enr, Pd)
 
-plt.xlabel(r'$10\log_{10}\frac{\varepsilon}{\sigma^2}$')
+plt.xlabel(r'$10\log_{10}\frac{N A^2}{2 \sigma^2}$')
 plt.ylabel(r'$P_D$')
-plt.title(r'$Unknown \; Amplitude \; Damped \; Exponential \; in \; WGN$')
+plt.title(r'$Unknown \; Amplitude \; Sinusoid \; in \; WGN$')
 plt.grid()
 plt.show()

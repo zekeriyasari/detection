@@ -1,3 +1,12 @@
+# Matched filter performance in WGN
+# H0: x[n] = w[n]
+# H1: x[n] = A*s[n, phi] + w[n],  n = 0, 1, ..., N-1
+# w[N] is WGN with mean 0 and variance var.
+# s[n] is deterministic and known.
+# A is deterministic and unknown.
+# phi is deterministic and unknown.
+
+
 from utils import *
 
 N = 10
@@ -9,36 +18,29 @@ d2 = 10 ** (enr / 10)
 
 for i in range(pfa.size):
     # generate the deterministic signal.
-    f = 1e3
-    fs = 10e3
-    F = f / fs
-    A = np.random.randn(M, 1)  # random amplitude.
-    phi = np.random.rand(M, 1) * np.pi  # random phase
-    s0 = np.cos(2 * np.pi * F * np.arange(N)) * np.cos(phi) - np.sin(2 * np.pi * F * np.arange(N)) * np.sin(phi)
-    s = A * s0
-    ksi0 = np.cos(2 * np.pi * F * np.arange(N)) * np.ones((M, 1))
-    ksi1 = np.sin(2 * np.pi * F * np.arange(N)) * np.ones((M, 1))
+    A = np.random.randn()  # unknown amplitude.
+    phi = np.random.rand() * np.pi  # unknown phase.
+    F = 0.25  # discrete frequency
+    n = np.arange(N)
+    s = A * np.cos(2 * np.pi * F * n + phi)
+
+    ksi0 = np.cos(2 * np.pi * F * n)
+    ksi1 = np.sin(2 * np.pi * F * n)
 
     # numerically calculate probability of detection.
     P = np.zeros_like(enr)
     for k in range(d2.size):
         # variance corresponding to d2
-        epsilon0 = np.sum(s0 ** 2, axis=1).reshape((M, 1))
-        epsilon = (A ** 2) * epsilon0
-        var = epsilon / d2[k]
+        var = N * (A ** 2) / (2 * d2[k])
 
-        # generate the noise.
-        w = np.sqrt(var) * np.random.randn(M, N)
+        # determine the threshold corresponding to gamma
+        gamma = var * np.log(1 / pfa[i])
 
-        # generate the M-by-N data under H1 hypothesis.
-        data = s + w  # make use of python broadcasting.
-
-        # determine thresholds for M realizations.
-        gamma = var * np.log(1 / pfa[i])  # should be M-by-1 vector.
+        # generate the data.
+        data = np.sqrt(var) * np.random.randn(M, N) + s
 
         # apply the detector.
-        T = 1 / N * (np.sum(data * ksi0, axis=1).reshape((M, 1))) ** 2 + 1 / N * (np.sum(data * ksi1, axis=1).reshape(
-            (M, 1))) ** 2  # should be M-by-1 vector.
+        T = 1 / N * (data.dot(ksi0) ** 2) + 1 / N * (data.dot(ksi1) ** 2)  # NP detector.
         P[k] = np.where(T > gamma)[0].size / M
 
     # analytically calculate probability of detection.
@@ -48,5 +50,8 @@ for i in range(pfa.size):
     plt.plot(enr, P, '*')
     # plt.plot(enr, Pd)
 
+plt.xlabel(r'$10\log_{10}\frac{N A^2}{2\sigma^2}$')
+plt.ylabel(r'$P_D$')
+plt.title(r'$Unknown \; Amplitude \; and \; Phase \; Sinusoid \; in \; WGN$')
 plt.grid()
 plt.show()
