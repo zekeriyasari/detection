@@ -1,3 +1,6 @@
+# This module contains the utility functions used in the project.
+
+
 import numpy as np
 from scipy.special import erfc, erfinv
 
@@ -23,10 +26,10 @@ def linear_chirp(t, f0, t1, f1, phi=0):
     :return:ndarray,
         chirp signal s(t)
     """
-
+    t = np.asarray(t)
     mu = (f1 - f0) / t1  # chirp rate.
-    phase = 2 * np.pi * f0 * t + mu * np.pi * t ** 2  # instantaneous frequency
-    phase *= np.pi / 180
+    phase = 2 * np.pi * (f0 * t + 0.5 * mu * t * t)  # instantaneous frequency
+    phi *= np. pi / 180
     return np.cos(phase + phi)
 
 

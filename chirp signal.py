@@ -1,7 +1,6 @@
-# A time-frequency analysis of signals.
+# Time-frequency analysis of chirp signals.
 
-
-import numpy as np
+from utils import *
 import matplotlib.pyplot as plt
 from scipy import fftpack, signal
 
@@ -11,10 +10,9 @@ Ts = 1 / 1000  # sampling period.
 fs = 1 / Ts  # sampling frequency
 
 t = np.arange(N)*Ts  # continuous time.
-x = np.sin(2 * np.pi * 100 * t) + np.sin(2 * np.pi * 200 * t) + np.sin(2 * np.pi * 300 * t)  # signal
+x = linear_chirp(t, 100, 5, 1250)  # chirp signal.
 xf = fftpack.fft(x)  # fft of the signal
 f = fftpack.fftfreq(N, Ts)  # get the sampled frequencies.
-
 
 fig, ax = plt.subplots(2, 2)
 ax[0, 0].plot(t, x)  # plot signal in time.
@@ -31,7 +29,7 @@ ax[0, 1].semilogy(f, Pxx)
 ax[0, 1].set_xlabel('$f \; [Hz]$')
 ax[0, 1].set_ylabel('$PSD$')
 
-ax[1, 1].specgram(x, NFFT=128, Fs=fs, noverlap=16)  # spectrogram of the signal.
+ax[1, 1].specgram(x, NFFT=128, Fs=fs, noverlap=64)  # spectrogram of the signal.
 ax[1, 1].set_xlabel('$t \; [sec]$')
 ax[1, 1].set_ylabel('$f \; [Hz]$')
 
