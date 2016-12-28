@@ -27,8 +27,9 @@ def linear_chirp(t, f0, t1, f1, phi=0):
         chirp signal s(t)
     """
     t = np.asarray(t)
-    mu = (f1 - f0) / t1  # chirp rate.
-    phase = 2 * np.pi * (f0 * t + 0.5 * mu * t * t)  # instantaneous frequency
+    t0 = t[0]
+    mu = (f1 - f0) / (t1 - t0)  # chirp rate.
+    phase = 2 * np.pi * (f0 * t + 0.5 * mu * (t - t0) ** 2)  # instantaneous frequency
     phi *= np. pi / 180
     return np.cos(phase + phi)
 
