@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c23ae105-750f-4cf1-b262-1cfc1f2b9b7f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/biorthogonal_chirp.py" afterPath="$PROJECT_DIR$/biorthogonal_chirp.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="monte_carlo.iws" />
@@ -63,7 +62,7 @@
       <file leaf-file-name="biorthogonal_chirp.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/biorthogonal_chirp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.47472528">
+            <state vertical-scroll-proportion="0.11868132">
               <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
               <folding>
                 <element signature="e#252#271#0" expanded="true" />
@@ -585,7 +584,13 @@
       <option name="project" value="LOCAL" />
       <updated>1482964631915</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="performance (BER - SNR) comparison of biorthogonal chirp keying and antipodal chirp keying.">
+      <created>1482965242517</created>
+      <option name="number" value="00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1482965242518</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -666,7 +671,8 @@
     <MESSAGE value="modified to include common time-frequency analysis" />
     <MESSAGE value="implmented generation and time-frequency analysis of chirp signals." />
     <MESSAGE value="implemented bi-orthogonal chirp signals." />
-    <option name="LAST_COMMIT_MESSAGE" value="implemented bi-orthogonal chirp signals." />
+    <MESSAGE value="performance (BER - SNR) comparison of biorthogonal chirp keying and antipodal chirp keying." />
+    <option name="LAST_COMMIT_MESSAGE" value="performance (BER - SNR) comparison of biorthogonal chirp keying and antipodal chirp keying." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -991,7 +997,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/biorthogonal_chirp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47472528">
+        <state vertical-scroll-proportion="0.11868132">
           <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
           <folding>
             <element signature="e#252#271#0" expanded="true" />
