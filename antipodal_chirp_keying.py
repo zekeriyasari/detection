@@ -53,15 +53,17 @@ Pe = Q(np.sqrt(d2 * 2))
 # plot the results.
 plt.plot(enr, P, '*')
 plt.plot(enr, Pe)
+plt.xlabel(r'$10\log_{10}\frac{N A^2}{2\sigma^2}$')
+plt.ylabel(r'$P_e$')
+plt.grid(True)
 
 # plot the results in logarithmic scale.
 plt.figure()
 plt.semilogy(enr, P, '*')
 plt.semilogy(enr, Pe)
+plt.xlabel(r'$10\log_{10}\frac{NA^2}{2\sigma^2}$')
+plt.ylabel(r'$P_e$')
+plt.grid(True)
 
-
-plt.xlabel(r'$10\log_{10}\frac{\varepsilon}{\sigma^2}$')
-plt.ylabel(r'$P_D$')
-plt.title(r'$Binary \; Phase \; Shift \; Keying \; in \; WGN$')
-plt.grid()
+# plt.title(r'$Binary \; Phase \; Shift \; Keying \; in \; WGN$')
 plt.show()
