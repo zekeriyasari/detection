@@ -5,6 +5,7 @@
 # s0[n] and s1[n] are deterministic.
 
 from utils import *
+import matplotlib.pyplot as plt
 
 N = 10
 M = 10000

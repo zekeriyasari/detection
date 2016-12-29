@@ -8,6 +8,7 @@
 # N: the number of data points.
 
 from utils import *
+import matplotlib.pyplot as plt
 
 np.random.seed(0)  # set seed of random number generator.
 

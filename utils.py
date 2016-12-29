@@ -1,6 +1,37 @@
+# This module contains the utility functions used in the project.
+
+
 import numpy as np
 from scipy.special import erfc, erfinv
-import matplotlib.pyplot as plt
+
+
+def linear_chirp(t, f0, t1, f1, phi=0):
+    """
+    Generates the linear chirp signal `s(t) = cos(2 * pi * fc * t + mu * pi * t ** 2)`
+    with the instantaneous frequency `fi(t) = fc + mu * t` where,
+    mu = (f1 - f0)/t1
+    t1 is the time when fi(t1) = f1
+
+    :param t: array-like
+        time array
+    :param f0: float
+        initial frequency
+    :param t1: float
+        the time when instantaneous frequency is when t = 0
+    :param f1: float
+        final frequency
+    :param phi: float
+        initial phase in radians.
+
+    :return:ndarray,
+        chirp signal s(t)
+    """
+    t = np.asarray(t)
+    t0 = t[0]
+    mu = (f1 - f0) / (t1 - t0)  # chirp rate.
+    phase = 2 * np.pi * (f0 * t + 0.5 * mu * (t - t0) ** 2)  # instantaneous frequency
+    phi *= np. pi / 180
+    return np.cos(phase + phi)
 
 
 
