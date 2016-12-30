@@ -7,10 +7,10 @@
 from utils import *
 import matplotlib.pyplot as plt
 
-N = 10
-M = 10000
+N = 1024
+M = 1000
 
-pfa = np.logspace(-7, -1, 7)
+pfa = np.logspace(-1, -1, 1)
 enr = np.linspace(0, 20, 50)
 d2 = 10 ** (enr / 10)
 
@@ -20,33 +20,33 @@ for i in range(pfa.size):
     Ts = 1 / 1000  # sampling period.
     fs = 1 / Ts  # sampling frequency
 
-    t = np.arange(N)*Ts  # continuous time signal.
+    t = np.arange(N) * Ts  # continuous time signal.
 
-    A = 1  # amplitude.
-    s0 = linear_chirp(t, 100, 5, 1250, phi=np.pi)  # chirp signal.
+    A = 0.01  # amplitude.
+    s0 = linear_chirp(t, 100, 1, 250, phi=np.pi)  # chirp signal.
     s1 = -s0
     deltas = s1 - s0
 
-    epsilon = s.dot(s)  # signal energy.
+    # epsilon = s.dot(s)  # signal energy.
 
     # numerically calculate probability of detection.
     P = np.zeros_like(enr)
     for k in range(d2.size):
         # variance corresponding to d2
-        var = epsilon / d2[k]
+        var = N * A ** 2 / (2 * d2[k])
 
         # determine the threshold corresponding to gamma
-        gamma = np.sqrt(var * epsilon) * Qinv(pfa[i])
+        gamma = Qinv(pfa[i]) * np.sqrt(4 * N / var) - 2 * A * N / var
 
         # generate the data.
-        data = np.sqrt(var) * np.random.randn(M, N) + s
+        data = np.random.laplace(scale=np.sqrt(var / 2), size=(M, N)) + s1
 
         # apply the detector.
-        T = data.dot(s)  # NP detector.
+        T = np.sign(data).dot(deltas)  # NP detector.
         P[k] = np.where(T > gamma)[0].size / M
 
     # analytically calculate probability of detection.
-    Pd = Q(Qinv(pfa[i]) - np.sqrt(d2))
+    Pd = Q(Qinv(pfa[i]) - np.sqrt(d2 * 8))
 
     # plot the results.
     plt.plot(enr, P, '*')
