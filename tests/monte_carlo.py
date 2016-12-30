@@ -5,7 +5,7 @@
 # gamma: the threshold,
 # Q: the error function,
 # var: variance of the random variable,
-# N: the number of data points.
+# N: the number of datap points.
 
 from utils import *
 import matplotlib.pyplot as plt
@@ -13,10 +13,10 @@ import matplotlib.pyplot as plt
 np.random.seed(0)  # set seed of random number generator.
 
 var = 10  # variance of the random variable.
-N = 10  # the number of data points.
+N = 10  # the number of datap points.
 M = 1000  # number of realizations of the test statistic T.
 
-data = np.sqrt(var) * np.random.randn(M, N)  # generate M-by-N random data.
+data = np.sqrt(var) * np.random.randn(M, N)  # generate M-by-N random datap.
 T = data.mean(axis=1)  # compute the test statistic. Here it is sample mean.
 
 n_gamma = 100  # number of thresholds to be tested.

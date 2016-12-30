@@ -1,8 +1,8 @@
 # BPSK performance in WGN.
-# H0: x[n] = s0[n] + w[n]
-# H1: x[n] = s1[n] + w[n],  n = 0, 1, ..., N-1
+# H0: x[n] = sf0[n] + w[n]
+# H1: x[n] = sf1[n] + w[n],  n = 0, 1, ..., N-1
 # w[N] is WGN with mean 0 and variance var.
-# s0[n] and s1[n] are deterministic.
+# sf0[n] and sf1[n] are deterministic.
 
 from utils import *
 import matplotlib.pyplot as plt
@@ -34,7 +34,7 @@ for k in range(d2.size):
     # gamma = np.sqrt(var/N) * Qinv(pfa[i])
     gamma = 0  # threshold for Bayesian detector
 
-    # generate the data.
+    # generate the datap.
     data = np.sqrt(var) * np.random.randn(M, N) + s0
 
     # apply the detector.

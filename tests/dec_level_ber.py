@@ -29,7 +29,7 @@ for k in range(d2.size):
     # gamma = np.sqrt(var/N) * Qinv(pfa[i])
     gamma = A / 2  # threshold for Bayesian detector
 
-    # generate the data.
+    # generate the datap.
     data = np.sqrt(var) * np.random.randn(M, N)
 
     # apply the detector.

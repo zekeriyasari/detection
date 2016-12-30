@@ -23,8 +23,15 @@ for i in range(pfa.size):
     t = np.arange(N) * Ts  # continuous time signal.
 
     A = 1  # amplitude.
-    s0 = linear_chirp(t, 100, 1, 250, phi=np.pi)  # chirp signal.
-    s1 = -s0
+
+    s0n = linear_chirp(t[:N/2], 250, 0.5, 100)  # chirp signal with positive chirp rate.
+    s0p = linear_chirp(t[N/2:], 100, 1, 250)  # chirp signal with negative chirp rate.
+    s0 = np.hstack((s0n, s0p))  # bi-orthogonal chirp signals. Signifies symbol `0`
+
+    s1p = linear_chirp(t[:N/2], 100, 0.5, 250)  # chirp signal with positive chirp rate.
+    s1n = linear_chirp(t[N/2:], 250, 1, 100)  # chirp signal with negative chirp rate.
+    s1 = np.hstack((s1p, s1n))  # bi-orthogonal chirp signals. Signifies symbol `1`
+
     deltas = s1 - s0
 
     # numerically calculate probability of detection.
@@ -44,7 +51,7 @@ for i in range(pfa.size):
         P[k] = np.where(T > gamma)[0].size / M
 
     # analytically calculate probability of detection.
-    Pd = Q(Qinv(pfa[i]) - np.sqrt(d2 * 8))
+    Pd = Q(Qinv(pfa[i]) - np.sqrt(d2 * 4))
 
     # plot the results.
     plt.plot(enr, P, '*')

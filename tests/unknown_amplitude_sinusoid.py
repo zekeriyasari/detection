@@ -32,7 +32,7 @@ for i in range(pfa.size):
         # determine the threshold corresponding to gamma
         gamma = var * (epsilon / A ** 2) * (Qinv(pfa[i] / 2) ** 2)
 
-        # generate the data.
+        # generate the datap.
         data = np.sqrt(var) * np.random.randn(M, N) + s
 
         # apply the detector.

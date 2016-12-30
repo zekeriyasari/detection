@@ -1,8 +1,8 @@
 # BFSK performance in WGN.
-# H0: x[n] = s0[n] + w[n]
-# H1: x[n] = s1[n] + w[n],  n = 0, 1, ..., N-1
+# H0: x[n] = sf0[n] + w[n]
+# H1: x[n] = sf1[n] + w[n],  n = 0, 1, ..., N-1
 # w[N] is WGN with mean 0 and variance var.
-# s0[n] and s1[n] are deterministic.
+# sf0[n] and sf1[n] are deterministic.
 
 from utils import *
 import matplotlib.pyplot as plt
@@ -22,8 +22,8 @@ F1 = 0.2  # discrete frequency
 n = np.arange(N)
 s0 = A * np.cos(2 * np.pi * F0 * n)  # deterministic signal.
 s1 = A * np.cos(2 * np.pi * F1 * n)  # deterministic signal.
-# plt.stem(s0)
-# plt.stem(s1)
+# plt.stem(sf0)
+# plt.stem(sf1)
 # plt.show()
 
 
@@ -40,7 +40,7 @@ for k in range(d2.size):
     # gamma = np.sqrt(var/N) * Qinv(pfa[i])
     gamma = 0  # threshold for Bayesian detector
 
-    # generate the data.
+    # generate the datap.
     data = np.sqrt(var) * np.random.randn(M, N) + s0
 
     # apply the detector.
