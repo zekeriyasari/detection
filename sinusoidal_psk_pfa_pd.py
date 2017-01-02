@@ -8,11 +8,11 @@ from utils import *
 import matplotlib.pyplot as plt
 
 N = 1024
+N = 1024
 M = 10000
 
-pfa = np.logspace(-7, -1, 7)
-enr = np.linspace(0, 20, 50)
-enr_range = np.linspace(0, 16, 50)
+pfa = np.logspace(-1, -7, 1)
+enr_range = np.linspace(0, 20, 50)
 d2 = np.array([10 ** (enr / 10) for enr in enr_range])
 
 for i in range(pfa.size):
@@ -23,14 +23,14 @@ for i in range(pfa.size):
 
     t = np.arange(N) * Ts  # continuous time signal.
 
-    A = 1  # amplitude.
+    A = 1e-6  # amplitude.
     f = 100  # frequency
     s0 = np.cos(2 * np.pi * f * t + np.pi)  # chirp signal.
     s1 = -s0
     deltas = s1 - s0
 
     # numerically calculate probability of detection.
-    P = np.zeros_like(enr)
+    P = np.zeros_like(enr_range)
     for k in range(d2.size):
         # variance corresponding to d2
         var = N * A ** 2 / (2 * d2[k])
@@ -51,8 +51,8 @@ for i in range(pfa.size):
     Pd = Q(Qinv(pfa[i]) - np.sqrt(d2 * 4))
 
     # plot the results.
-    plt.plot(enr, P, '*')
-    plt.plot(enr, Pd)
+    plt.plot(enr_range, P, '*')
+    plt.plot(enr_range, Pd)
 
 plt.xlabel(r'$10\log_{10}\frac{\varepsilon}{\sigma^2}$')
 plt.ylabel(r'$P_D$')
