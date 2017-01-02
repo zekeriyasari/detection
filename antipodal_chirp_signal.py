@@ -15,7 +15,7 @@ s1 = linear_chirp(t, 100, 1, 250, phi=0.0)  # chirp signal with negative chirp r
 xf0 = fftpack.fft(s0)  # fft of the signal
 f = fftpack.fftfreq(N, Ts)  # get the sampled frequencies.
 
-fig, ax = plt.subplots(2, 2)
+fig1, ax = plt.subplots(2, 2)
 ax[0, 0].plot(t, s0)  # plot signal in time.
 ax[0, 0].set_xlabel('$t \; [sec]$')
 ax[0, 0].set_ylabel('$x(t)$')
@@ -39,7 +39,7 @@ plt.tight_layout()
 xf1 = fftpack.fft(s1)  # fft of the signal
 f = fftpack.fftfreq(N, Ts)  # get the sampled frequencies.
 
-fig, ax = plt.subplots(2, 2)
+fig2, ax = plt.subplots(2, 2)
 ax[0, 0].plot(t, s1)  # plot signal in time.
 ax[0, 0].set_xlabel('$t \; [sec]$')
 ax[0, 0].set_ylabel('$x(t)$')

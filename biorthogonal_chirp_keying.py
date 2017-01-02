@@ -10,8 +10,8 @@ import matplotlib.pyplot as plt
 N = 1024
 M = 10000
 
-enr = np.linspace(0, 16, 50)
-d2 = 10 ** (enr / 10)
+enr_range = np.linspace(0, 16, 50)
+d2 = np.array([10 ** (enr / 10) for enr in enr_range])
 
 # generate the deterministic signal.
 Ts = 1 / 1000  # sampling period.
@@ -32,7 +32,7 @@ deltas = s1 - s0
 
 
 # numerically calculate probability of detection.
-P = np.zeros_like(enr)
+P = np.zeros_like(enr_range)
 for k in range(d2.size):
     # variance corresponding to d2
     var = N * (A ** 2) / (2 * d2[k])
@@ -53,8 +53,8 @@ for k in range(d2.size):
 Pe = Q(np.sqrt(d2))
 
 # plot the results.
-plt.plot(enr, P, '*', label=r'$bcs \; monte \; carlo$')
-plt.plot(enr, Pe, label=r'$bcs \; analytic$')
+plt.plot(enr_range, P, '*', label=r'$bcs \; monte \; carlo$')
+plt.plot(enr_range, Pe, label=r'$bcs \; analytic$')
 plt.xlabel(r'$10\log_{10}\frac{NA^2}{2\sigma^2}$')
 plt.ylabel(r'$P_e$')
 plt.legend(loc='upper right')
@@ -62,8 +62,8 @@ plt.grid(True)
 
 # plot the results in logarithmic scale.
 plt.figure()
-plt.semilogy(enr, P, '*', label=r'$bcs \; monte \; carlo$')
-plt.semilogy(enr, Pe, label=r'$bcs \; analytic$')
+plt.semilogy(enr_range, P, '*', label=r'$bcs \; monte \; carlo$')
+plt.semilogy(enr_range, Pe, label=r'$bcs \; analytic$')
 plt.xlabel(r'$10\log_{10}\frac{NA^2}{2\sigma^2}$')
 plt.ylabel(r'$P_e$')
 plt.legend(loc='lower left')

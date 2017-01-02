@@ -1,16 +1,16 @@
-# Matched filter performance in WGN
-# H0: x[n] = w[n]
-# H1: x[n] = s[n] + w[n],  n = 0, 1, ..., N-1
+# Phase sh
+# H0: x[n] = A*s0[n] + w[n]
+# H1: x[n] = A*s1[n] + w[n],  n = 0, 1, ..., N-1
 # w[N] is WGN with mean 0 and variance var.
-# s[n] is deterministic.
+# s0[n] and s1[n] is deterministic.
 
 from utils import *
 import matplotlib.pyplot as plt
 
 N = 1024
-M = 5000
+M = 10000
 
-pfa = np.logspace(-7, -7, 1)
+pfa = np.logspace(-7, -1, 7)
 enr = np.linspace(0, 20, 50)
 enr_range = np.linspace(0, 16, 50)
 d2 = np.array([10 ** (enr / 10) for enr in enr_range])
@@ -24,7 +24,8 @@ for i in range(pfa.size):
     t = np.arange(N) * Ts  # continuous time signal.
 
     A = 1  # amplitude.
-    s0 = linear_chirp(t, 100, 1, 250, phi=np.pi)  # chirp signal.
+    f = 100  # frequency
+    s0 = np.cos(2 * np.pi * f * t + np.pi)  # chirp signal.
     s1 = -s0
     deltas = s1 - s0
 
@@ -35,17 +36,19 @@ for i in range(pfa.size):
         var = N * A ** 2 / (2 * d2[k])
 
         # determine the threshold corresponding to gamma
-        gamma = Qinv(pfa[i]) * np.sqrt(4 * N / var) - 2 * A * N / var
+        # gamma = Qinv(pfa[i]) * np.sqrt(4 * N / var) - 2 * A * N / var
+        gamma = Qinv(pfa[i]) * np.sqrt(2 * var * N) - A * N
 
         # generate the datap.
-        data = np.random.laplace(scale=np.sqrt(var / 2), size=(M, N)) + A * s1
+        data = np.random.normal(scale=np.sqrt(var), size=(M, N)) + A * s1
 
         # apply the detector.
-        T = np.sign(data).dot(deltas)  # NP detector.
+        # T = np.sign(data).dot(deltas)  # NP detector.
+        T = data.dot(deltas)  # NP detector.
         P[k] = np.where(T > gamma)[0].size / M
 
     # analytically calculate probability of detection.
-    Pd = Q(Qinv(pfa[i]) - np.sqrt(d2 * 8))
+    Pd = Q(Qinv(pfa[i]) - np.sqrt(d2 * 4))
 
     # plot the results.
     plt.plot(enr, P, '*')
