@@ -1,8 +1,8 @@
-# Antipodal chirp keying PFA-PD performance in Laplace noise.
+# Antipodal sinusoidal keying PFA-PD performance in Gaussian noise.
 # H0: x[n] = A * s0[n] + w[n]
 # H1: x[n] = A * s1[n] + w[n],  n = 0, 1, ..., N-1
-# w[N] is Laplace random variable with zero mean.
-# s0[n] and s1[n] are deterministic antipodal chirp signals..
+# w[N] is Gaussian random variable with zero mean.
+# s0[n] and s1[n] are deterministic antipodal sinusoidal signals.
 
 from utils import *
 import matplotlib.pyplot as plt
@@ -21,8 +21,9 @@ for i in range(pfa.size):
 
     t = np.arange(N) * Ts  # continuous time signal.
 
-    A = 1e-6  # small amplitude.
-    s0 = linear_chirp(t, 100, 1, 250, phi=np.pi)  # chirp signal.
+    A = 1e-6  # amplitude.
+    f = 100  # frequency
+    s0 = np.cos(2 * np.pi * f * t + np.pi)  # chirp signal.
     s1 = -s0
     deltas = s1 - s0
 
@@ -30,16 +31,16 @@ for i in range(pfa.size):
     P = np.zeros_like(enr_range)
     for k in range(d2.size):
         # variance corresponding to d2
-        var = N * A ** 2 / d2[k]
+        var = N * A ** 2 / (2 * d2[k])
 
         # determine the threshold corresponding to gamma
-        gamma = Qinv(pfa[i]) * np.sqrt(4 * N / var) - 2 * A * N / var
+        gamma = Qinv(pfa[i]) * np.sqrt(2 * var * N) - A * N
 
-        # generate the data.
-        data = np.random.laplace(scale=np.sqrt(var / 2), size=(M, N)) + A * s1
+        # generate the datap.
+        data = np.random.normal(scale=np.sqrt(var), size=(M, N)) + A * s1
 
         # apply the detector.
-        T = np.sqrt(2 / var) * np.sign(data).dot(deltas)  # NP detector.
+        T = np.dot(data, deltas)
         P[k] = np.where(T > gamma)[0].size / M
 
     # analytically calculate probability of detection.
@@ -47,11 +48,9 @@ for i in range(pfa.size):
 
     # plot the results.
     plt.plot(enr_range, P, '*')
-    plt.plot(enr_range, Pd, label=r'$pfa={}$'.format(pfa[i]))
+    plt.plot(enr_range, Pd, label='pfa = {}'.format(pfa[i]))
 
 plt.xlabel(r'$10\log_{10}\frac{N A^2}{2\sigma^2}$')
 plt.ylabel(r'$P_D$')
-
-plt.legend(loc='lower right')
 plt.grid()
 plt.show()

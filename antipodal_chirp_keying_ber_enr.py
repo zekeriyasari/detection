@@ -1,14 +1,14 @@
-# Antipodal chirp keying performance in Laplace noise.
-# H0: x[n] = A * sf0[n] + w[n]
-# H1: x[n] = A * sf1[n] + w[n],  n = 0, 1, ..., N-1
-# w[N] is Laplace random variable with mean 0 and variance var.
-# sf0[n] and sf1[n] are deterministic chirp signals.
+# Antipodal chirp keying BER-ENR performance in Laplace noise.
+# H0: x[n] = A * s0[n] + w[n]
+# H1: x[n] = A * s1[n] + w[n],  n = 0, 1, ..., N-1
+# w[N] is Laplace random variable with zero mean.
+# s0[n] and s1[n] are deterministic antipodal chirp signals.
 
 from utils import *
 import matplotlib.pyplot as plt
 
-N = 1024
-M = 10000
+N = 1024  # number of data points.
+M = 10000  # number of monte carlo trials.
 
 enr_range = np.linspace(0, 16, 50)
 d2 = np.array([10 ** (enr/10) for enr in enr_range])
@@ -19,8 +19,8 @@ fs = 1 / Ts  # sampling frequency
 
 t = np.arange(N)*Ts  # continuous time signal.
 
-A = 0.01  # amplitude.
-s0 = linear_chirp(t, 100, 5, 1250, phi=np.pi)  # chirp signal.
+A = 1e-6  # small amplitude.
+s0 = linear_chirp(t, 100, 1, 250, phi=np.pi)  # chirp signal.
 s1 = -s0
 deltas = s1 - s0
 
@@ -32,36 +32,33 @@ for k in range(d2.size):
     var = N * (A ** 2) / (2 * d2[k])
 
     # determine the threshold corresponding to gamma
-    # gamma = np.sqrt(var/N) * Qinv(pfa[i])
     gamma = 0  # threshold for Bayesian detector
 
     # generate the datap.
-    # datap = np.sqrt(var) * np.random.randn(M, N) + sf0  # gaussian noise
     data = np.random.laplace(scale=np.sqrt(var / 2), size=(M, N)) + A * s0  # laplace noise
 
     # apply the detector.
-    T = np.sign(data).dot(deltas)  # NP detector.
+    T = np.sqrt(2 / var) * np.sign(data).dot(deltas)  # NP detector.
     P[k] = np.where(T > gamma)[0].size / M
 
 # analytically calculate probability of error.
-Pe = Q(np.sqrt(d2 * 2))
+Pe = Q(np.sqrt(2 * d2))
 
 # plot the results.
-plt.plot(enr_range, P, '*', label=r'$acs \; monte \; carlo$')
-plt.plot(enr_range, Pe, label=r'$acs \; analytic$')
+plt.plot(enr_range, P, '*', label=r'$ack \; monte \; carlo$')
+plt.plot(enr_range, Pe, label=r'$ack \; analytic$')
 plt.xlabel(r'$10\log_{10}\frac{N A^2}{2\sigma^2}$')
 plt.ylabel(r'$P_e$')
 plt.legend(loc='upper right')
-plt.grid(True)
+plt.grid()
 
 # plot the results in logarithmic scale.
 plt.figure()
-plt.semilogy(enr_range, P, '*', label=r'$acs \; analytic$')
-plt.semilogy(enr_range, Pe, label=r'$acs \; analytic$')
+plt.semilogy(enr_range, P, '*', label=r'$ack \; analytic$')
+plt.semilogy(enr_range, Pe, label=r'$ack \; analytic$')
 plt.xlabel(r'$10\log_{10}\frac{NA^2}{2\sigma^2}$')
 plt.ylabel(r'$P_e$')
-plt.legend(loc='lower left')
-plt.grid(True)
 
-# plt.title(r'$Binary \; Phase \; Shift \; Keying \; in \; WGN$')
+plt.legend(loc='lower left')
+plt.grid()
 plt.show()
