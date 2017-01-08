@@ -39,7 +39,7 @@ for k in range(d2.size):
     # determine the threshold corresponding to gamma
     gamma = 0  # threshold for Bayesian detector
 
-    # generate the datap.
+    # generate the data.
     data = np.random.laplace(scale=np.sqrt(var / 2), size=(M, N)) + A * s0
 
     # apply the detector.

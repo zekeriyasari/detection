@@ -49,7 +49,7 @@ for i in range(pfa.size):
 
     # plot the results.
     plt.plot(enr, P, '*')
-    # plt.plot(enr, Pd)
+    # plt.plot(enr_range, Pd)
 
 plt.xlabel(r'$10\log_{10}\frac{N A^2}{2\sigma^2}$')
 plt.ylabel(r'$P_D$')

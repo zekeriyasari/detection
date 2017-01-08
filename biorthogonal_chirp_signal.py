@@ -23,11 +23,11 @@ f = fftpack.fftfreq(N, Ts)  # get the sampled frequencies.
 fig, ax = plt.subplots(2, 2)
 ax[0, 0].plot(t, s0)  # plot signal in time.
 ax[0, 0].set_xlabel('$t \; [sec]$')
-ax[0, 0].set_ylabel('$x(t)$')
+ax[0, 0].set_ylabel('$s(t)$')
 
 ax[1, 0].plot(fftpack.fftshift(f), 1 / N * np.abs(fftpack.fftshift(xf0)))  # amplitude spectrum.
 ax[1, 0].set_xlabel('$f \; [Hz]$')
-ax[1, 0].set_ylabel('$|X(f)|$')
+ax[1, 0].set_ylabel('$|S(f)|$')
 ax[1, 0].grid()
 
 f, Pxx = signal.periodogram(s0, fs)
@@ -47,11 +47,11 @@ f = fftpack.fftfreq(N, Ts)  # get the sampled frequencies.
 fig, ax = plt.subplots(2, 2)
 ax[0, 0].plot(t, s1)  # plot signal in time.
 ax[0, 0].set_xlabel('$t \; [sec]$')
-ax[0, 0].set_ylabel('$x(t)$')
+ax[0, 0].set_ylabel('$s(t)$')
 
 ax[1, 0].plot(fftpack.fftshift(f), 1 / N * np.abs(fftpack.fftshift(xf1)))  # amplitude spectrum.
 ax[1, 0].set_xlabel('$f \; [Hz]$')
-ax[1, 0].set_ylabel('$|X(f)|$')
+ax[1, 0].set_ylabel('$|S(f)|$')
 ax[1, 0].grid()
 
 f, Pxx = signal.periodogram(s1, fs)

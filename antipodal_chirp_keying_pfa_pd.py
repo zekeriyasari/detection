@@ -30,7 +30,7 @@ for i in range(pfa.size):
     P = np.zeros_like(enr_range)
     for k in range(d2.size):
         # variance corresponding to d2
-        var = N * A ** 2 / d2[k]
+        var = N * A ** 2 / (2 * d2[k])
 
         # determine the threshold corresponding to gamma
         gamma = Qinv(pfa[i]) * np.sqrt(4 * N / var) - 2 * A * N / var
@@ -43,7 +43,7 @@ for i in range(pfa.size):
         P[k] = np.where(T > gamma)[0].size / M
 
     # analytically calculate probability of detection.
-    Pd = Q(Qinv(pfa[i]) - np.sqrt(d2 * 4))
+    Pd = Q(Qinv(pfa[i]) - np.sqrt(d2 * 8))
 
     # plot the results.
     plt.plot(enr_range, P, '*')
