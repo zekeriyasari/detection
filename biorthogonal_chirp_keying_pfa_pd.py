@@ -56,9 +56,10 @@ for i in range(pfa.size):
     plt.plot(enr_range, P, '*')
     plt.plot(enr_range, Pd, label=r'$pfa={}$'.format(pfa[i]))
 
-plt.xlabel(r'$10\log_{10}\frac{N A^2}{2\sigma^2}$')
-plt.ylabel(r'$P_D$')
+plt.xlabel(r'$10\log_{10}\frac{N A^2}{2\sigma^2}$', fontsize=20)
+plt.ylabel(r'$P_D$', fontsize=20)
 
 plt.legend(loc='lower right')
 plt.grid()
+plt.tight_layout()
 plt.show()

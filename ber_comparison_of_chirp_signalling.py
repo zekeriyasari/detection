@@ -17,15 +17,15 @@ d2 = np.array([10 ** (enr / 10) for enr in enr_range])
 Ts = 1 / 1000  # sampling period.
 fs = 1 / Ts  # sampling frequency
 
-t = np.arange(N)*Ts  # continuous time signal.
+t = np.arange(N) * Ts  # continuous time signal.
 
 A = 1e-6  # small amplitude.
-sf0n = linear_chirp(t[:N/2], 250, 0.5, 100)  # chirp signal with positive chirp rate.
-sf0p = linear_chirp(t[N/2:], 100, 1, 250)  # chirp signal with negative chirp rate.
+sf0n = linear_chirp(t[:int(N / 2)], 250, 0.5, 100)  # chirp signal with positive chirp rate.
+sf0p = linear_chirp(t[int(N / 2):], 100, 1, 250)  # chirp signal with negative chirp rate.
 sf0 = np.hstack((sf0n, sf0p))  # bi-orthogonal chirp signals. Signifies symbol `0`
 
-sf1p = linear_chirp(t[:N/2], 100, 0.5, 250)  # chirp signal with positive chirp rate.
-sf1n = linear_chirp(t[N/2:], 250, 1, 100)  # chirp signal with negative chirp rate.
+sf1p = linear_chirp(t[:int(N / 2)], 100, 0.5, 250)  # chirp signal with positive chirp rate.
+sf1n = linear_chirp(t[int(N / 2):], 250, 1, 100)  # chirp signal with negative chirp rate.
 sf1 = np.hstack((sf1p, sf1n))  # bi-orthogonal chirp signals. Signifies symbol `1`
 deltasf = sf1 - sf0
 
@@ -59,26 +59,25 @@ Pep = Q(np.sqrt(2 * d2))
 Pef = Q(np.sqrt(d2))
 
 # plot the results.
-plt.plot(enr_range, Pp, '*', label=r'$acs \; monte \; carlo$')
-plt.plot(enr_range, Pep, label=r'$acs \; analytic$')
-plt.plot(enr_range, Pf, '*', label=r'$bcs \; monte \; carlo$')
-plt.plot(enr_range, Pef, label=r'$bcs \; analytic$')
-plt.xlabel(r'$10\log_{10}\frac{NA^2}{2\sigma^2}$')
-plt.ylabel(r'$P_e$')
-plt.legend(loc='upper right')
-plt.grid(True)
+fig1, ax = get_figure()
+ax.plot(enr_range, Pp, '*', label=r'$acs \; monte \; carlo$')
+ax.plot(enr_range, Pep, label=r'$acs \; analytic$')
+ax.plot(enr_range, Pf, '*', label=r'$bcs \; monte \; carlo$')
+ax.plot(enr_range, Pef, label=r'$bcs \; analytic$')
+ax.set_xlabel(r'$10\log_{10}\frac{NA^2}{2\sigma^2}$', fontsize=20)
+ax.set_ylabel(r'$P_e$', fontsize=20)
+ax.legend(loc='upper right')
 
 # plot the results in logarithmic scale.
-plt.figure()
-plt.semilogy(enr_range, Pp, '*', label=r'$acs \; monte \; carlo$')
-plt.semilogy(enr_range, Pep, label=r'$acs \; analytic$')
-plt.semilogy(enr_range, Pf, '*', label=r'$bcs \; monte \; carlo$')
-plt.semilogy(enr_range, Pef, label=r'$bcs \; analytic$')
-plt.xlabel(r'$10\log_{10}\frac{NA^2}{2\sigma^2}$')
-plt.ylabel(r'$P_e$')
-plt.legend(loc='lower left')
-plt.grid(True)
-
+fig2, ax = get_figure()
+ax.semilogy(enr_range, Pp, '*', label=r'$acs \; monte \; carlo$')
+ax.semilogy(enr_range, Pep, label=r'$acs \; analytic$')
+ax.semilogy(enr_range, Pf, '*', label=r'$bcs \; monte \; carlo$')
+ax.semilogy(enr_range, Pef, label=r'$bcs \; analytic$')
+ax.set_xlabel(r'$10\log_{10}\frac{NA^2}{2\sigma^2}$', fontsize=20)
+ax.set_ylabel(r'$P_e$', fontsize=20)
+ax.legend(loc='lower left')
 
 # plt.title(r'$Binary \; Phase \; Shift \; Keying \; in \; WGN$')
+plt.tight_layout()
 plt.show()

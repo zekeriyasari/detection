@@ -2,6 +2,7 @@
 
 
 import numpy as np
+import matplotlib.pyplot as plt
 from scipy.special import erfc, erfinv
 
 
@@ -30,7 +31,7 @@ def linear_chirp(t, f0, t1, f1, phi=0):
     t0 = t[0]
     mu = (f1 - f0) / (t1 - t0)  # chirp rate.
     phase = 2 * np.pi * (f0 * t + 0.5 * mu * (t - t0) ** 2)  # instantaneous frequency
-    phi *= np. pi / 180
+    phi *= np.pi / 180
     return np.cos(phase + phi)
 
 
@@ -59,3 +60,16 @@ def Qinv(x):
     """
 
     return np.sqrt(2) * erfinv(1 - 2 * x)
+
+
+def get_figure():
+    # construct the figure.
+    fig, ax = plt.subplots()
+    ax.set_xticks(np.arange(0, 21, 5))
+    ax.set_xticks(np.arange(0, 21, 1), minor=True)
+    ax.set_yticks(np.arange(0, 21, 0.25))
+    ax.set_yticks(np.arange(0, 21, 0.0625), minor=True)
+    ax.grid(which='both')
+    ax.grid(which='minor', alpha=0.5)
+    ax.grid(which='major', alpha=0.75)
+    return fig, ax
