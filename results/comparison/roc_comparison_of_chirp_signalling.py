@@ -5,10 +5,15 @@
 # s0[n] and s1[n] are deterministic antipodal chirp signals..
 
 from utils import *
+import logging
+import os
 import matplotlib.pyplot as plt
 
+logging.basicConfig(format='%(asctime)s %(message)s', level=logging.DEBUG)
+logging.info('Started simulation...')
+
 N = 1024  # number of data points.
-M = 1000  # number of monte carlo trials.
+M = 10000  # number of monte carlo trials.
 
 pfa = np.linspace(0., 1., 50)
 d2 = np.arange(0.25, 1.25, 0.25)
@@ -16,6 +21,9 @@ d2 = np.arange(0.25, 1.25, 0.25)
 fig, ax = get_figure()
 
 for i in range(len(d2)):
+
+    logging.info('Started d2: {}'.format(d2[i]))
+
     # generate the deterministic signal.
     Ts = 1 / 1000  # sampling period.
     fs = 1 / Ts  # sampling frequency
@@ -40,6 +48,9 @@ for i in range(len(d2)):
     Pp = np.zeros_like(pfa)
     Pf = np.zeros_like(pfa)
     for k in range(d2.size):
+
+        logging.info('Started d2: {}'.format(d2[k]))
+
         # variance corresponding to d2
         var = N * A ** 2 / (2 * d2[i])
 
@@ -57,19 +68,30 @@ for i in range(len(d2)):
         Pp[k] = np.where(Tp > gamma)[0].size / M
         Pf[k] = np.where(Tf > gamma)[0].size / M
 
+        logging.info('Ended d2: {}'.format(d2[k]))
+
     # analytically calculate probability of detection.
     Pp = Q(Qinv(pfa) - np.sqrt(d2[i] * 8))
     Pf = Q(Qinv(pfa) - np.sqrt(d2[i] * 4))
 
     # plot the results.
     ax.plot(pfa, Pp, '*')
-    ax.plot(pfa, Pp, label=r'$ack-d2={}$'.format(d2[i]))
+    ax.plot(pfa, Pp, label=r'$ack-d^2={}$'.format(d2[i]))
     ax.plot(pfa, Pf, '*')
-    ax.plot(pfa, Pf, label=r'$bck-d2={}$'.format(d2[i]))
+    ax.plot(pfa, Pf, label=r'$bck-d^2={}$'.format(d2[i]))
 
-ax.set_xlabel(r'$_{FA}$', fontsize=20)
+    logging.info('Finished d2: {}'.format(d2[i]))
+
+ax.set_xlabel(r'$P_{FA}$', fontsize=20)
 ax.set_ylabel(r'$P_D$', fontsize=20)
 
 ax.legend(loc='lower right')
 plt.tight_layout()
-plt.show()
+
+directory = os.getcwd() + '/figures'
+if not os.path.exists(directory):
+    os.makedirs(directory)
+os.chdir(directory)
+plt.savefig('roc_comparison')
+
+logging.info('Finished simulation')

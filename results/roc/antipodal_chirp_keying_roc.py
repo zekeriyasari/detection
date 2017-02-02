@@ -5,15 +5,24 @@
 # s0[n] and s1[n] are deterministic antipodal chirp signals..
 
 from utils import *
+import os
+import logging
 import matplotlib.pyplot as plt
 
+logging.basicConfig(format='%(asctime)s %(message)s', level=logging.DEBUG)
+
 N = 1024  # number of data points.
-M = 10000  # number of monte carlo trials.
+M = 1000  # number of monte carlo trials.
+
+logging.info('Started simulation for {} monte carlo trials and {} data points'.format(M, N))
 
 pfa = np.linspace(0., 1., 50)
 d2 = np.arange(0.25, 1.25, 0.25)
 
 for i in range(len(d2)):
+
+    logging.info('Started d2: {}'.format(d2[i]))
+
     # generate the deterministic signal.
     Ts = 1 / 1000  # sampling period.
     fs = 1 / Ts  # sampling frequency
@@ -48,10 +57,17 @@ for i in range(len(d2)):
     plt.plot(pfa, P, '*')
     plt.plot(pfa, Pd, label=r'$d^2={}$'.format(d2[i]))
 
+    logging.info('Ended d2: {}'.format(d2[i]))
+
 plt.xlabel(r'$P_{FA}$', fontsize=20)
 plt.ylabel(r'$P_D$', fontsize=20)
 
 plt.legend(loc='lower right')
 plt.grid()
 plt.tight_layout()
-plt.show()
+
+directory = os.getcwd() + '/figures'
+if not os.path.exists(directory):
+    os.makedirs(directory)
+os.chdir(directory)
+plt.savefig('antipodal_chirp_keying_roc')

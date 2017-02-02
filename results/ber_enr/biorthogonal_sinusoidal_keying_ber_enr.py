@@ -5,12 +5,18 @@
 # s0[n] and s1[n] are deterministic antipodal sinusoidal signals.
 
 from utils import *
+import os
+import logging
 import matplotlib.pyplot as plt
 
-N = 1024  # number of data points
-M = 10000  # number of monte carlo trials
+logging.basicConfig(format='%(asctime)s %(message)s', level=logging.DEBUG)
 
-enr_range = np.linspace(0, 16, 50)
+N = 1024  # number of data points
+M = 1000  # number of monte carlo trials
+
+logging.info('Started simulation for {} monte carlo trials and {} data points'.format(M, N))
+
+enr_range = np.linspace(0, 9, 50)
 d2 = np.array([10 ** (enr / 10) for enr in enr_range])
 
 Ts = 1 / 1000  # sampling period.
@@ -28,6 +34,9 @@ delta_s = s1 - s0
 # numerically calculate probability of detection.
 P = np.zeros_like(enr_range)
 for k in range(d2.size):
+
+    logging.info('Started d2: {}'.format(d2[k]))
+
     # variance corresponding to d2
     var = N * A ** 2 / (2 * d2[k])
 
@@ -40,6 +49,8 @@ for k in range(d2.size):
     # apply the detector.
     T = data.dot(delta_s)  # NP detector.
     P[k] = np.where(T > gamma)[0].size / M
+
+    logging.info('Finished d2: {}'.format(d2[k]))
 
 # analytically calculate probability of error.
 Pe = Q(np.sqrt(0.5 * d2))
@@ -61,4 +72,8 @@ plt.ylabel(r'$P_e$')
 plt.legend(loc='lower left')
 plt.grid(True)
 
-plt.show()
+directory = os.getcwd() + '/figures'
+if not os.path.exists(directory):
+    os.makedirs(directory)
+os.chdir(directory)
+plt.savefig('biorthogonal_sinusoidal_keying_ber_enr')

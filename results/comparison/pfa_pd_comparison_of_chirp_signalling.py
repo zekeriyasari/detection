@@ -5,7 +5,12 @@
 # s0[n] and s1[n] are deterministic antipodal chirp signals..
 
 from utils import *
+import os
+import logging
 import matplotlib.pyplot as plt
+
+logging.basicConfig(format='%(asctime)s %(message)s', level=logging.DEBUG)
+logging.info('Started simulation...')
 
 N = 1024  # number of data points.
 M = 1000  # number of monte carlo trials.
@@ -17,6 +22,9 @@ d2 = np.array([10 ** (enr / 10) for enr in enr_range])
 fig, ax = get_figure()
 
 for i in range(pfa.size):
+
+    logging.info('Started pfa: {}'.format(pfa[i]))
+
     # generate the deterministic signal.
     Ts = 1 / 1000  # sampling period.
     fs = 1 / Ts  # sampling frequency
@@ -41,6 +49,9 @@ for i in range(pfa.size):
     Pp = np.zeros_like(enr_range)
     Pf = np.zeros_like(enr_range)
     for k in range(d2.size):
+
+        logging.info('Started d2: {}'.format(d2[k]))
+
         # variance corresponding to d2
         var = N * A ** 2 / (2 * d2[k])
 
@@ -58,6 +69,8 @@ for i in range(pfa.size):
         Pp[k] = np.where(Tp > gamma)[0].size / M
         Pf[k] = np.where(Tf > gamma)[0].size / M
 
+        logging.info('Ended d2: {}'.format(d2[k]))
+
     # analytically calculate probability of detection.
     Pp = Q(Qinv(pfa[i]) - np.sqrt(d2 * 8))
     Pf = Q(Qinv(pfa[i]) - np.sqrt(d2 * 4))
@@ -68,9 +81,18 @@ for i in range(pfa.size):
     ax.plot(enr_range, Pf, '*')
     ax.plot(enr_range, Pf, label=r'$bck-pfa={}$'.format(pfa[i]))
 
+    logging.info('Finished pfa: {}'.format(pfa[i]))
+
 ax.set_xlabel(r'$10\log_{10}\frac{N A^2}{2\sigma^2}$', fontsize=20)
 ax.set_ylabel(r'$P_D$', fontsize=20)
 
 ax.legend(loc='lower right')
 plt.tight_layout()
-plt.show()
+
+directory = os.getcwd() + '/figures'
+if not os.path.exists(directory):
+    os.makedirs(directory)
+os.chdir(directory)
+plt.savefig('pfa_pd_comparison')
+
+logging.info('Finished simulation')

@@ -5,16 +5,25 @@
 # s0[n] and s1[n] are deterministic antipodal sinusoidal signals.
 
 from utils import *
+import os
+import logging
 import matplotlib.pyplot as plt
 
+logging.basicConfig(format='%(asctime)s %(message)s', level=logging.DEBUG)
+
 N = 1024  # number of data points.
-M = 10000  # number of monte carlo trials.
+M = 1000  # number of monte carlo trials.
+
+logging.info('Started simulation for {} monte carlo trials and {} data points'.format(M, N))
 
 pfa = np.logspace(-1, -7, 7)
 enr_range = np.linspace(0, 20, 50)
 d2 = np.array([10 ** (enr / 10) for enr in enr_range])
 
 for i in range(pfa.size):
+
+    logging.info('Started pfa: {}'.format(pfa[i]))
+
     # generate the deterministic signal.
     Ts = 1 / 1000  # sampling period.
     fs = 1 / Ts  # sampling frequency
@@ -50,7 +59,14 @@ for i in range(pfa.size):
     plt.plot(enr_range, P, '*')
     plt.plot(enr_range, Pd, label='pfa = {}'.format(pfa[i]))
 
+    logging.info('Ended pfa: {}'.format(pfa[i]))
+
 plt.xlabel(r'$10\log_{10}\frac{N A^2}{2\sigma^2}$')
 plt.ylabel(r'$P_D$')
 plt.grid()
-plt.show()
+
+directory = os.getcwd() + '/figures'
+if not os.path.exists(directory):
+    os.makedirs(directory)
+os.chdir(directory)
+plt.savefig('antipodal_sinudoidal_keying_pfa_pd')
