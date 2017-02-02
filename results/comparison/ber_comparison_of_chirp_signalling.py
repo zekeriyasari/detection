@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 N = 1024  # number of data points.
 M = 10000  # number of monte carlo trials.
 
-enr_range = np.linspace(0, 16, 50)
+enr_range = np.linspace(0, 9, 50)
 d2 = np.array([10 ** (enr / 10) for enr in enr_range])
 
 # generate the deterministic signal.
@@ -59,14 +59,14 @@ Pep = Q(np.sqrt(2 * d2))
 Pef = Q(np.sqrt(d2))
 
 # plot the results.
-fig1, ax = get_figure()
-ax.plot(enr_range, Pp, '*', label=r'$acs \; monte \; carlo$')
-ax.plot(enr_range, Pep, label=r'$acs \; analytic$')
-ax.plot(enr_range, Pf, '*', label=r'$bcs \; monte \; carlo$')
-ax.plot(enr_range, Pef, label=r'$bcs \; analytic$')
-ax.set_xlabel(r'$10\log_{10}\frac{NA^2}{2\sigma^2}$', fontsize=20)
-ax.set_ylabel(r'$P_e$', fontsize=20)
-ax.legend(loc='upper right')
+# fig1, ax = get_figure()
+# ax.plot(enr_range, Pp, '*', label=r'$acs \; monte \; carlo$')
+# ax.plot(enr_range, Pep, label=r'$acs \; analytic$')
+# ax.plot(enr_range, Pf, '*', label=r'$bcs \; monte \; carlo$')
+# ax.plot(enr_range, Pef, label=r'$bcs \; analytic$')
+# ax.set_xlabel(r'$10\log_{10}\frac{NA^2}{2\sigma^2}$', fontsize=20)
+# ax.set_ylabel(r'$P_e$', fontsize=20)
+# ax.legend(loc='upper right')
 
 # plot the results in logarithmic scale.
 fig2, ax = get_figure()

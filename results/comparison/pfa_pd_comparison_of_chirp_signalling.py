@@ -8,7 +8,7 @@ from utils import *
 import matplotlib.pyplot as plt
 
 N = 1024  # number of data points.
-M = 10000  # number of monte carlo trials.
+M = 1000  # number of monte carlo trials.
 
 pfa = np.logspace(-1, -7, 3)
 enr_range = np.linspace(0, 20, 50)
